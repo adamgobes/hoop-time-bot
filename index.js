@@ -148,4 +148,8 @@ app.get('/', (req ,res) {
     res.send("hello");
 });
 
-app.listen(PORT);
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+    console.log('running on port', app.get('port'))
+});

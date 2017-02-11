@@ -105,7 +105,12 @@ const wit = new Wit({
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.get('/webhook', (req, res) => {
-    res.send("hello");
+    if (req.query['hub.mode'] === 'subscribe' &&
+    req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.sendStatus(400);
+    }
 });
 
 app.post('/webhook', (req, res) => {

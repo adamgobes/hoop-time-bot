@@ -22,7 +22,7 @@ try {
 
 const PORT = process.env.PORT || 8445;
 const WIT_TOKEN = "RGDH23D2DR62LX4YEYDNLEC3PJ6ATQTG"
-const FB_PAGE_TOKEN = "EAAUEZA7z5fc4BAF0wU35jg0w2LZCHh7Vzh8D9ix5CXohMeHnXUhhZB4BDaRaCIb1UjvJ55mAYta3S6lYdgGkZBdBkZC7d0sZCdofDIOZAV7ZB2xG1Wet1bGdoWNKy8RuG48KZA0N8aHbJsCa5hnQ56pNIiIulIcByUKvByI4EZCEEYngZDZD"
+const FB_PAGE_TOKEN = "EAAUEZA7z5fc4BAIXFXyFJaNXSCN3rVjdfgYQzMIs2qfsjCwEhuCEB8hIZB2t3URhg8L1wHIgNvqkZBzNR1GlZAZCM8i1z978e686FGVZBNAnFLuzyogJrMqZCwHkpGdZCtqGoINs9lfuX04NUzc4KKZCPZCqMq0HcqQVrIZAWyVQc82sgZDZD"
 const FB_VERIFY_TOKEN = "verified"
 
 const fbMessage = (id, text) => {
@@ -130,17 +130,18 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        wit.runActions(
-                            sessionId, // the user's current session
-                            text, // the user's message
-                            sessions[sessionId].context // the user's current session state
-                        ).then((context) => {
-                            console.log('Waiting for next user messages');
-                            sessions[sessionId].context = context;
-                        })
-                        .catch((err) => {
-                            console.error('Oops! Got an error from Wit: ', err.stack || err);
-                        })
+                        fbMessage(sender, "Hello");
+                        // wit.runActions(
+                        //     sessionId, // the user's current session
+                        //     text, // the user's message
+                        //     sessions[sessionId].context // the user's current session state
+                        // ).then((context) => {
+                        //     console.log('Waiting for next user messages');
+                        //     sessions[sessionId].context = context;
+                        // })
+                        // .catch((err) => {
+                        //     console.error('Oops! Got an error from Wit: ', err.stack || err);
+                        // })
                     }
                 } else {
                     console.log('received event', JSON.stringify(event));

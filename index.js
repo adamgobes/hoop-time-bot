@@ -45,59 +45,59 @@ const fbMessage = (id, text) => {
 };
 
 
-// const sessions = {};
-//
-// const findOrCreateSession = (fbid) => {
-//     let sessionId;
-//     Object.keys(sessions).forEach(k => {
-//         if (sessions[k].fbid === fbid) {
-//             sessionId = k;
-//         }
-//     });
-//     if (!sessionId) {
-//         sessionId = new Date().toISOString();
-//         sessions[sessionId] = {fbid: fbid, context: {}};
-//     }
-//     return sessionId;
-// };
-//
-// const actions = {
-//     send({sessionId}, {text}) {
-//         const recipientId = sessions[sessionId].fbid;
-//         if (recipientId) {
-//             return fbMessage(recipientId, text)
-//             .then(() => null)
-//             .catch((err) => {
-//                 console.error(
-//                     'Oops! An error occurred while forwarding the response to',
-//                     recipientId,
-//                     ':',
-//                     err.stack || err
-//                 );
-//             });
-//         } else {
-//             console.error('Oops! Couldn\'t find user for session:', sessionId);t
-//             return Promise.resolve()
-//         }
-//     },
-//     getWeather({context, entities}) {
-//         var location = firstEntityValue(entities, 'location');
-//         if (location) {
-//             context.weather = 'sunny in ' + location; // we should call a weather API here
-//             delete context.missingLocation;
-//         } else {
-//             context.missingLocation = true;
-//             delete context.weather;
-//         }
-//         return context;
-//     }
-// };
-//
-// const wit = new Wit({
-//     accessToken: WIT_TOKEN,
-//     actions,
-//     logger: new log.Logger(log.INFO)
-// });
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+    let sessionId;
+    Object.keys(sessions).forEach(k => {
+        if (sessions[k].fbid === fbid) {
+            sessionId = k;
+        }
+    });
+    if (!sessionId) {
+        sessionId = new Date().toISOString();
+        sessions[sessionId] = {fbid: fbid, context: {}};
+    }
+    return sessionId;
+};
+
+const actions = {
+    send({sessionId}, {text}) {
+        const recipientId = sessions[sessionId].fbid;
+        if (recipientId) {
+            return fbMessage(recipientId, text)
+            .then(() => null)
+            .catch((err) => {
+                console.error(
+                    'Oops! An error occurred while forwarding the response to',
+                    recipientId,
+                    ':',
+                    err.stack || err
+                );
+            });
+        } else {
+            console.error('Oops! Couldn\'t find user for session:', sessionId);t
+            return Promise.resolve()
+        }
+    },
+    getWeather({context, entities}) {
+        var location = firstEntityValue(entities, 'location');
+        if (location) {
+            context.weather = 'sunny in ' + location; // we should call a weather API here
+            delete context.missingLocation;
+        } else {
+            context.missingLocation = true;
+            delete context.weather;
+        }
+        return context;
+    }
+};
+
+const wit = new Wit({
+    accessToken: WIT_TOKEN,
+    actions,
+    logger: new log.Logger(log.INFO)
+});
 
 
 
@@ -136,19 +136,17 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        fbMessage(sender, "Hello");
-                        console.log('message sent');
-                        // wit.runActions(
-                        //     sessionId, // the user's current session
-                        //     text, // the user's message
-                        //     sessions[sessionId].context // the user's current session state
-                        // ).then((context) => {
-                        //     console.log('Waiting for next user messages');
-                        //     sessions[sessionId].context = context;
-                        // })
-                        // .catch((err) => {
-                        //     console.error('Oops! Got an error from Wit: ', err.stack || err);
-                        // })
+                        wit.runActions(
+                            sessionId, // the user's current session
+                            text, // the user's message
+                            sessions[sessionId].context // the user's current session state
+                        ).then((context) => {
+                            console.log('Waiting for next user messages');
+                            sessions[sessionId].context = context;
+                        })
+                        .catch((err) => {
+                            console.error('Oops! Got an error from Wit: ', err.stack || err);
+                        })
                     }
                 } else {
                     console.log('received event', JSON.stringify(event));

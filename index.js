@@ -118,58 +118,46 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-app.post('/webhook', function (req, res) {
-    messaging_events = req.body.entry[0].messaging
-    for (i = 0; i < messaging_events.length; i++) {
-        event = req.body.entry[0].messaging[i]
-        sender = event.sender.id
-        if (event.message && event.message.text) {
-            text = event.message.text
-            fbMessage(sender, "Text received, echo: " + text.substring(0, 200));
-        }
+
+app.post('/webhook', (req, res) => {
+    const data = req.body;
+
+    if (data.object === 'page') {
+        data.entry.forEach(entry => {
+            entry.messaging.forEach(event => {
+                if (event.message && !event.message.is_echo) {
+                    const sender = event.sender.id;
+
+                    const sessionId = findOrCreateSession(sender);
+
+                    const {text, attachments} = event.message;
+
+                    if (attachments) {
+                        fbMessage(sender, 'Sorry I can only process text messages for now.')
+                        .catch(console.error);
+                    } else if (text) {
+                        fbMessage(sender, "Hello");
+                        console.log('message sent');
+                        // wit.runActions(
+                        //     sessionId, // the user's current session
+                        //     text, // the user's message
+                        //     sessions[sessionId].context // the user's current session state
+                        // ).then((context) => {
+                        //     console.log('Waiting for next user messages');
+                        //     sessions[sessionId].context = context;
+                        // })
+                        // .catch((err) => {
+                        //     console.error('Oops! Got an error from Wit: ', err.stack || err);
+                        // })
+                    }
+                } else {
+                    console.log('received event', JSON.stringify(event));
+                }
+            });
+        });
     }
     res.sendStatus(200);
-})
-
-// app.post('/webhook', (req, res) => {
-//     const data = req.body;
-//
-//     if (data.object === 'page') {
-//         data.entry.forEach(entry => {
-//             entry.messaging.forEach(event => {
-//                 if (event.message && !event.message.is_echo) {
-//                     const sender = event.sender.id;
-//
-//                     const sessionId = findOrCreateSession(sender);
-//
-//                     const {text, attachments} = event.message;
-//
-//                     if (attachments) {
-//                         fbMessage(sender, 'Sorry I can only process text messages for now.')
-//                         .catch(console.error);
-//                     } else if (text) {
-//                         fbMessage(sender, "Hello");
-//                         console.log('message sent');
-//                         // wit.runActions(
-//                         //     sessionId, // the user's current session
-//                         //     text, // the user's message
-//                         //     sessions[sessionId].context // the user's current session state
-//                         // ).then((context) => {
-//                         //     console.log('Waiting for next user messages');
-//                         //     sessions[sessionId].context = context;
-//                         // })
-//                         // .catch((err) => {
-//                         //     console.error('Oops! Got an error from Wit: ', err.stack || err);
-//                         // })
-//                     }
-//                 } else {
-//                     console.log('received event', JSON.stringify(event));
-//                 }
-//             });
-//         });
-//     }
-//     res.sendStatus(200);
-// });
+});
 
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))

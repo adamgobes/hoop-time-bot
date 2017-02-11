@@ -131,6 +131,7 @@ app.post('/webhook', (req, res) => {
                         .catch(console.error);
                     } else if (text) {
                         fbMessage(sender, "Hello");
+                        console.log('message sent');
                         // wit.runActions(
                         //     sessionId, // the user's current session
                         //     text, // the user's message

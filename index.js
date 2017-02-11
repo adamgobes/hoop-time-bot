@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.set('port', (process.env.PORT || 5000));
+
 
 let Wit = null;
 let log = null;
@@ -19,8 +19,7 @@ try {
 
 
 
-
-const PORT = process.env.PORT || 8445;
+app.set('port', (process.env.PORT || 5000));
 const WIT_TOKEN = "RGDH23D2DR62LX4YEYDNLEC3PJ6ATQTG"
 const FB_PAGE_TOKEN = "EAAUEZA7z5fc4BAIXFXyFJaNXSCN3rVjdfgYQzMIs2qfsjCwEhuCEB8hIZB2t3URhg8L1wHIgNvqkZBzNR1GlZAZCM8i1z978e686FGVZBNAnFLuzyogJrMqZCwHkpGdZCtqGoINs9lfuX04NUzc4KKZCPZCqMq0HcqQVrIZAWyVQc82sgZDZD"
 const FB_VERIFY_TOKEN = "verified"
@@ -46,63 +45,69 @@ const fbMessage = (id, text) => {
 };
 
 
-const sessions = {};
+// const sessions = {};
+//
+// const findOrCreateSession = (fbid) => {
+//     let sessionId;
+//     Object.keys(sessions).forEach(k => {
+//         if (sessions[k].fbid === fbid) {
+//             sessionId = k;
+//         }
+//     });
+//     if (!sessionId) {
+//         sessionId = new Date().toISOString();
+//         sessions[sessionId] = {fbid: fbid, context: {}};
+//     }
+//     return sessionId;
+// };
+//
+// const actions = {
+//     send({sessionId}, {text}) {
+//         const recipientId = sessions[sessionId].fbid;
+//         if (recipientId) {
+//             return fbMessage(recipientId, text)
+//             .then(() => null)
+//             .catch((err) => {
+//                 console.error(
+//                     'Oops! An error occurred while forwarding the response to',
+//                     recipientId,
+//                     ':',
+//                     err.stack || err
+//                 );
+//             });
+//         } else {
+//             console.error('Oops! Couldn\'t find user for session:', sessionId);t
+//             return Promise.resolve()
+//         }
+//     },
+//     getWeather({context, entities}) {
+//         var location = firstEntityValue(entities, 'location');
+//         if (location) {
+//             context.weather = 'sunny in ' + location; // we should call a weather API here
+//             delete context.missingLocation;
+//         } else {
+//             context.missingLocation = true;
+//             delete context.weather;
+//         }
+//         return context;
+//     }
+// };
+//
+// const wit = new Wit({
+//     accessToken: WIT_TOKEN,
+//     actions,
+//     logger: new log.Logger(log.INFO)
+// });
 
-const findOrCreateSession = (fbid) => {
-    let sessionId;
-    Object.keys(sessions).forEach(k => {
-        if (sessions[k].fbid === fbid) {
-            sessionId = k;
-        }
-    });
-    if (!sessionId) {
-        sessionId = new Date().toISOString();
-        sessions[sessionId] = {fbid: fbid, context: {}};
-    }
-    return sessionId;
-};
-
-const actions = {
-    send({sessionId}, {text}) {
-        const recipientId = sessions[sessionId].fbid;
-        if (recipientId) {
-            return fbMessage(recipientId, text)
-            .then(() => null)
-            .catch((err) => {
-                console.error(
-                    'Oops! An error occurred while forwarding the response to',
-                    recipientId,
-                    ':',
-                    err.stack || err
-                );
-            });
-        } else {
-            console.error('Oops! Couldn\'t find user for session:', sessionId);t
-            return Promise.resolve()
-        }
-    },
-    getWeather({context, entities}) {
-        var location = firstEntityValue(entities, 'location');
-        if (location) {
-            context.weather = 'sunny in ' + location; // we should call a weather API here
-            delete context.missingLocation;
-        } else {
-            context.missingLocation = true;
-            delete context.weather;
-        }
-        return context;
-    }
-};
-
-const wit = new Wit({
-    accessToken: WIT_TOKEN,
-    actions,
-    logger: new log.Logger(log.INFO)
-});
 
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({extended: false}))
+app.get('/', function (req, res) {
+    res.send('Hello world, I am a chat bot')
+})
+
 
 app.get('/webhook', (req, res) => {
     if (req.query['hub.mode'] === 'subscribe' &&

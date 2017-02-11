@@ -81,15 +81,10 @@ const actions = {
         }
     },
     getWeather({context, entities}) {
-        var location = firstEntityValue(entities, 'location');
-        if (location) {
-            context.weather = 'sunny in ' + location; // we should call a weather API here
-            delete context.missingLocation;
-        } else {
-            context.missingLocation = true;
-            delete context.weather;
-        }
-        return context;
+        return new Promise((resolve, reject) => {
+            context.weather = 'sunny';
+            return resolve(context);
+        });
     }
 };
 

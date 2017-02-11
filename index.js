@@ -128,7 +128,7 @@ app.post('/webhook', (req, res) => {
                 if (event.message && !event.message.is_echo) {
                     const sender = event.sender.id;
 
-                    // const sessionId = findOrCreateSession(sender);
+                    const sessionId = findOrCreateSession(sender);
 
                     const {text, attachments} = event.message;
 

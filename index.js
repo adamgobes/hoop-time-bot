@@ -137,3 +137,5 @@ app.post('/webhook', (req, res) => {
     }
     res.sendStatus(200);
 });
+
+app.listen(PORT);

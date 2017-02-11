@@ -79,6 +79,17 @@ const actions = {
             return Promise.resolve()
         }
     },
+    getWeather({context, entities}) {
+        var location = firstEntityValue(entities, 'location');
+        if (location) {
+            context.weather = 'sunny in ' + location; // we should call a weather API here
+            delete context.missingLocation;
+        } else {
+            context.missingLocation = true;
+            delete context.weather;
+        }
+        return context;
+    }
 };
 
 const wit = new Wit({
@@ -92,12 +103,7 @@ const wit = new Wit({
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.get('/webhook', (req, res) => {
-    if (req.query['hub.mode'] === 'subscribe' &&
-    req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
-        res.send(req.query['hub.challenge']);
-    } else {
-        res.sendStatus(400);
-    }
+    res.send("hello");
 });
 
 app.post('/webhook', (req, res) => {

@@ -81,8 +81,15 @@ const actions = {
         }
     },
     getWeather({context, entities}) {
-        return new Promise((resolve, reject) => {
-            context.weather = 'sunny';
+        return new Promise(function(resolve, reject) {
+            var location = firstEntityValue(entities, "location")
+            if (location) {
+                context.forecast = 'sunny in ' + location; // we should call a weather API here
+                delete context.missingLocation;
+            } else {
+                context.missingLocation = true;
+                delete context.forecast;
+            }
             return resolve(context);
         });
     }
@@ -132,9 +139,9 @@ app.post('/webhook', (req, res) => {
                         .catch(console.error);
                     } else if (text) {
                         wit.runActions(
-                            sessionId, // the user's current session
-                            text, // the user's message
-                            sessions[sessionId].context // the user's current session state
+                            sessionId,
+                            text,
+                            sessions[sessionId].context
                         ).then((context) => {
                             console.log('Waiting for next user messages');
                             sessions[sessionId].context = context;

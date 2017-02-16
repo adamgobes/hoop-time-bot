@@ -11,3 +11,5 @@ const request = (date, sport) => {
         console.log(error);
     });
 }
+
+module.exports = request;

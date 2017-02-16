@@ -1,7 +1,7 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
-
+const requestTimes = require('./calendarRequest');
 
 const app = express();
 
@@ -97,7 +97,8 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            context.times = "You can play " + sport + " " + date + " at 7-10pm";
+            var times = requestTimes.request(sport, date);
+            context.times = times;
             return resolve(context);
         });
 

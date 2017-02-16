@@ -95,9 +95,8 @@ const actions = {
     },
     getTimes({context, entities}) {
         return new Promise(function(resolve, reject) {
-            // var date = firstEntityValue(entities, "datetime");
-            // var sport = firstEntityValue(entities, "sport");
-            context.times = "You can play";
+            var date = firstEntityValue(entities, "datetime");
+            context.times = "You can play " + date;
             return resolve(context);
         });
 

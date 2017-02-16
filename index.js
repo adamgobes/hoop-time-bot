@@ -75,16 +75,32 @@ const firstEntityValue = (entities, entity) => {
 };
 
 const actions = {
-    send(request, response) {
-        const {sessionId, context, entities} = request;
-        const {text, quickreplies} = response;
-        console.log('sending...', JSON.stringify(response));
+    send({sessionId}, {text}) {
+        const recipientId = sessions[sessionId].fbid;
+        if (recipientId) {
+            return fbMessage(recipientId, text)
+            .then(() => null)
+            .catch((err) => {
+                console.error(
+                    'Oops! An error occurred while forwarding the response to',
+                    recipientId,
+                    ':',
+                    err.stack || err
+                );
+            });
+        } else {
+            console.error('Oops! Couldn\'t find user for session:', sessionId);t
+            return Promise.resolve()
+        }
     },
     getTimes({context, entities}) {
-        var date = firstEntityValue(entities, "datetime");
-        var sport = firstEntityValue(entities, "sport");
-        context.times = "You can play " + sport + " " + date + " at 7-10pm";
-        return context;
+        return new Promise(function(resolve, reject) {
+            var date = firstEntityValue(entities, "datetime");
+            var sport = firstEntityValue(entities, "sport");
+            context.times = "You can play " + sport + " " + date + " at 7-10pm";
+            return resolve(context);
+        });
+
     },
 };
 

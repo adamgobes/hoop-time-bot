@@ -37,11 +37,12 @@ const actions = {
     getTimes({context, entities}) {
         var date = firstEntityValue(entities, "datetime");
         var sport = firstEntityValue(entities, "sport");
-        var times = requestTimes(sport, date).then(function(response) {
-            console.log(response.data);
-        }).catch(function(error) {
-            console.log(error);
-        });
+        console.log(date, sport);
+        // var times = requestTimes(sport, date).then(function(response) {
+        //     console.log(response.data);
+        // }).catch(function(error) {
+        //     console.log(error);
+        // });
         context.times = "You can play " + sport + " " + date + " at 7-10pm";
         return context;
     },

@@ -89,8 +89,8 @@ const actions = {
                 );
             });
         } else {
-            console.error('Oops! Couldn\'t find user for session:', sessionId);t
-            return Promise.resolve()
+            console.error('Oops! Couldn\'t find user for session:', sessionId);
+            return Promise.resolve();
         }
     },
     getTimes({context, entities}) {

@@ -75,37 +75,17 @@ const firstEntityValue = (entities, entity) => {
 };
 
 const actions = {
-    send({sessionId}, {text}) {
-        const recipientId = sessions[sessionId].fbid;
-        if (recipientId) {
-            return fbMessage(recipientId, text)
-            .then(() => null)
-            .catch((err) => {
-                console.error(
-                    'Oops! An error occurred while forwarding the response to',
-                    recipientId,
-                    ':',
-                    err.stack || err
-                );
-            });
-        } else {
-            console.error('Oops! Couldn\'t find user for session:', sessionId);t
-            return Promise.resolve()
-        }
+    send(request, response) {
+        const {sessionId, context, entities} = request;
+        const {text, quickreplies} = response;
+        console.log('sending...', JSON.stringify(response));
     },
-    getWeather({context, entities}) {
-        return new Promise(function(resolve, reject) {
-            var location = firstEntityValue(entities, "location")
-            if (location) {
-                context.weather = 'sunny in ' + location; // we should call a weather API here
-                delete context.missingLocation;
-            } else {
-                context.missingLocation = true;
-                delete context.weather;
-            }
-            return resolve(context);
-        });
-    }
+    getTimes({context, entities}) {
+        var date = firstEntityValue(entities, "datetime");
+        var sport = firstEntityValue(entities, "sport");
+        context.times = "You can play " + sport + " " + date + " at 7-10pm";
+        return context;
+    },
 };
 
 const wit = new Wit({

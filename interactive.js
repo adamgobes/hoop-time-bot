@@ -32,15 +32,10 @@ const actions = {
         const {text, quickreplies} = response;
         console.log('sending...', JSON.stringify(response));
     },
-    getWeather({context, entities}) {
-        var location = firstEntityValue(entities, 'location');
-        if (location) {
-            context.weather = 'sunny in ' + location; // we should call a weather API here
-            delete context.missingLocation;
-        } else {
-            context.missingLocation = true;
-            delete context.weather;
-        }
+    getTimes({context, entities}) {
+        var date = firstEntityValue(entities, "datetime");
+        var sport = firstEntityValue(entities, "sport");
+        context.times = "You can play " + sport + " " + date + " at 7-10pm";
         return context;
     },
 };

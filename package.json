@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "interactive": "node interactive.js",
-    "updateHeroku" : "git add .; git commit -m 'update heroku'; git push heroku master "
+    "updateHeroku": "git add .; git commit -m 'update heroku'; git push heroku master "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "^1.16.0",
     "express": "^4.14.1",
     "node-wit": "^4.2.0",

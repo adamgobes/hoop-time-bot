@@ -20,6 +20,7 @@ const filter = (events, sport) => {
     for (var i = 0; i < events.length; i++) {
         returnString += " " + events[i].summary;
     }
+    return returnString;
 }
 
 module.exports = { requestTimes, filter };

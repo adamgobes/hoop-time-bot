@@ -2,10 +2,14 @@ const axios = require('axios');
 const moment = require('moment');
 
 
+var today = moment("2017-02-18T00:00:00.000-08:00");
+console.log(today.add(2, "day").toISOString());
+
 const request = (date, sport) => {
     const calendarId = "athleticsmcgill@gmail.com";
+    const tomorrow = moment(date).toISOString();
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";
-    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + date + "&timeMax=" + date + "&showDeleted=false&singleEvents=true&orderBy=startTime";
+    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + date + "&timeMax=" + tomorrow + "&showDeleted=false&singleEvents=true&orderBy=startTime";
     return axios.get(url);
 }
 

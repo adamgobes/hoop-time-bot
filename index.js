@@ -97,13 +97,13 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            context.times = calendarRequest.requestTimes(date).then(function(response) {
+            calendarRequest.requestTimes(date).then(function(response) {
                 console.log(calendarRequest.filter(response.data.items, sport));
-                return calendarRequest.filter(response.data.items, sport);
+                context.times = calendarRequest.filter(response.data.items, sport);
+                return resolve(context);
             }).catch(function(error) {
                 console.log(error);
             });
-            return resolve(context);
         });
 
     },

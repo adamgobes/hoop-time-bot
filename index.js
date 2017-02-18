@@ -98,7 +98,8 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
             context.times = requestTimes(date, sport).then(function(response) {
-                return response.data.items;
+                console.log(response.data);
+                return response.data;
             }).catch(function(error) {
                 console.log(error);
             });

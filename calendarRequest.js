@@ -5,7 +5,7 @@ const moment = require('moment');
 var today = moment("2017-02-18T00:00:00.000-08:00");
 console.log(today.add(2, "day").toISOString());
 
-const request = (date, sport) => {
+const requestTimes = (date) => {
     const calendarId = "athleticsmcgill@gmail.com";
     let today = moment(date).toISOString();
     let tomorrow = moment(date).add(1, "days").toISOString();
@@ -15,4 +15,11 @@ const request = (date, sport) => {
     return axios.get(url);
 }
 
-module.exports = request;
+const filter = (events, sport) => {
+    let returnString = "";
+    for (var i = 0; i < events.length; i++) {
+        returnString += " " + events[i].summary;
+    }
+}
+
+module.exports = { requestTimes, filter };

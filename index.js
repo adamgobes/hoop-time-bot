@@ -1,7 +1,7 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
-const requestTimes = require('./calendarRequest');
+const calendarRequest = require('./calendarRequest');
 
 const app = express();
 
@@ -97,11 +97,8 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            context.times = requestTimes(date, sport).then(function(response) {
-                for (var i = 0; i < response.data.items.length; i++) {
-                    console.log(response.data.items[i].summary);
-                }
-                return response.data.iCalUID;
+            context.times = calendarRequest.requestTimes(date).then(function(response) {
+                return calendarRequest.filter(response.data.items, sport);
             }).catch(function(error) {
                 console.log(error);
             });

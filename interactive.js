@@ -37,7 +37,6 @@ const actions = {
     getTimes({context, entities}) {
         var date = firstEntityValue(entities, "datetime");
         var sport = firstEntityValue(entities, "sport");
-        console.log(date, sport);
         var times = requestTimes(sport, date).then(function(response) {
             console.log(response.data);
         }).catch(function(error) {

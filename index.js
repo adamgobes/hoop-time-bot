@@ -97,7 +97,11 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            context.times = "You can play " + sport;
+            context.times = requestTimes(date, sport).then(function(reponse) {
+                return response.data.items;
+            }).catch(function(error) {
+                console.log(error);
+            });
             return resolve(context);
         });
 

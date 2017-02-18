@@ -98,7 +98,9 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
             context.times = requestTimes(date, sport).then(function(response) {
-                console.log(response.data.items);
+                for (var i = 0; i < response.data.items.length; i++) {
+                    console.log(response.data.items[i].summary);
+                }
                 return response.data.iCalUID;
             }).catch(function(error) {
                 console.log(error);

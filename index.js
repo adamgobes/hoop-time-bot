@@ -99,7 +99,7 @@ const actions = {
             var sport = firstEntityValue(entities, "sport");
             calendarRequest.requestTimes(date).then(function(response) {
                 console.log(calendarRequest.filter(response.data.items, sport));
-                context.times = calendarRequest.filter(response.data.items, sport);
+                context.times = calendarRequest.filter(response.data.items, sport).substring(0, 200);
                 return resolve(context);
             }).catch(function(error) {
                 console.log(error);

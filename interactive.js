@@ -1,6 +1,6 @@
 'use strict';
 
-const requestTimes = require('./calendarRequest');
+const calendarRequest = require('./calendarRequest');
 
 let Wit = null;
 let interactive = null;
@@ -37,12 +37,12 @@ const actions = {
     getTimes({context, entities}) {
         var date = firstEntityValue(entities, "datetime");
         var sport = firstEntityValue(entities, "sport");
-        var times = requestTimes(sport, date).then(function(response) {
-            console.log(response.data);
+        var times = calendarRequest.requestTimes(sport, date).then(function(response) {
+            context.times = calendarRequest.filter(response.data.items, sport).substring(0, 200);
+            return context;
         }).catch(function(error) {
             console.log(error);
         });
-        return context;
     },
 };
 

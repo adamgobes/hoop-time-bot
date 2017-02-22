@@ -20,7 +20,7 @@ const filter = (events, sport) => {
     let eventString = "Varsity Badminton";
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
-            returnString += " " + events[i].summary;
+            returnString += " " + events[i].summary + " " + events[i].startTime.dateTime;
         }
     }
     return returnString;

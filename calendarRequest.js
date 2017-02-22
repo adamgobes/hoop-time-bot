@@ -22,7 +22,6 @@ const filter = (events, sport) => {
         if (events[i].summary.includes(eventString)) {
             returnString += " " + events[i].summary;
         }
-        returnString += " " + events[i].summary;
     }
     return returnString;
 }

@@ -10,7 +10,7 @@ const requestTimes = (date) => {
     let today = moment(date).toISOString();
     let tomorrow = moment(date).add(1, "days").toISOString();
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";
-    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + today + "&timeMax=" + tomorrow + "&showDeleted=false&singleEvents=true&orderBy=startTime";
+    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + today + "&timeMax=" + today + "&showDeleted=false&singleEvents=true&orderBy=startTime";
     return axios.get(url);
 }
 

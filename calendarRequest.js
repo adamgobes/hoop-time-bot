@@ -17,7 +17,11 @@ const requestTimes = (date) => {
 
 const filter = (events, sport) => {
     let returnString = "";
+    let eventString = "Rec " + sport;
     for (var i = 0; i < events.length; i++) {
+        if (events[i].summary.includes(eventString)) {
+            returnString += " " + events[i].summary;
+        }
         returnString += " " + events[i].summary;
     }
     return returnString;

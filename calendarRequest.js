@@ -9,9 +9,8 @@ const requestTimes = (date) => {
     const calendarId = "athleticsmcgill@gmail.com";
     let today = moment(date).toISOString();
     let tomorrow = moment(date).add(1, "days").toISOString();
-    console.log(today, tomorrow);
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";
-    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + today + "&showDeleted=false&singleEvents=true&orderBy=startTime";
+    let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + today + "&timeMax=" + tomorrow + "&showDeleted=false&singleEvents=true&orderBy=startTime";
     return axios.get(url);
 }
 

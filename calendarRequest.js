@@ -24,7 +24,7 @@ const filter = (events, sport) => {
     }
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
-            console.log(moment(events[i].start.dateTime));
+            console.log(moment(events[i].start.dateTime, moment.ISO_8601));
             filteredList.push({
                 start: moment(events[i].start.dateTime).hour(),
                 end: moment(events[i].end.dateTime).hour()

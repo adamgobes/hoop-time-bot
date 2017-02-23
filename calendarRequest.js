@@ -6,7 +6,6 @@ const requestTimes = (date) => {
     const calendarId = "athleticsmcgill@gmail.com";
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
-    console.log(desiredDate, dayAfter);
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";
     let url = "https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events?key=" + myKey + "&timeMin=" + desiredDate + "&timeMax=" + dayAfter + "&showDeleted=false&singleEvents=true&orderBy=startTime";
     return axios.get(url);
@@ -25,6 +24,7 @@ const filter = (events, sport) => {
     }
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
+            console.log(moment(events[i].start.dateTime));
             filteredList.push({
                 start: moment(events[i].start.dateTime).hour(),
                 end: moment(events[i].end.dateTime).hour()

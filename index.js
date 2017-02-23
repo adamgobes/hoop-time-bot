@@ -97,13 +97,18 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            calendarRequest.requestTimes(date).then(function(response) {
-                let filteredList = calendarRequest.filter(response.data.items, sport);
-                context.times = calendarRequest.generateResponse(filteredList);
-                return resolve(context);
-            }).catch(function(error) {
-                console.log(error);
-            });
+            if (date) {
+                calendarRequest.requestTimes(date).then(function(response) {
+                    let filteredList = calendarRequest.filter(response.data.items, sport);
+                    context.times = calendarRequest.generateResponse(filteredList);
+                    return resolve(context);
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            } else {
+                context.missingDate = true;
+                delete context.times;
+            }
         });
 
     },

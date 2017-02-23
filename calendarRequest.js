@@ -42,7 +42,7 @@ const generateResponse = (list) => {
     let responseString = "The available times I found are "
 
     for (var i = 0; i < list.length; i++) {
-        responseString += list[i].start + "-" list[i].end + " ";
+        responseString += list[i].start + "-" + list[i].end + " ";
     }
     return responseString;
 }

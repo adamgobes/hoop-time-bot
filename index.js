@@ -97,7 +97,9 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
-            context.sport = sport;
+            if (sport) {
+                context.sport = sport;
+            }
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     let filteredList = calendarRequest.filter(response.data.items, context.sport);
@@ -109,7 +111,6 @@ const actions = {
                 });
             } else {
                 context.missingDate = true;
-                context.sport = sport;
                 delete context.times;
                 return resolve(context);
             }

@@ -107,6 +107,7 @@ const actions = {
                     console.log(error);
                 });
             } else {
+                console.log('hi');
                 context.missingDate = true;
                 delete context.times;
             }

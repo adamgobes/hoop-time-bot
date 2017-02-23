@@ -24,7 +24,7 @@ const filter = (events, sport) => {
     }
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
-            console.log(moment("2017-02-26T14:00:00-05:00", moment.ISO_8601));
+            console.log(parseDate(events[i].start.dateTime)));
             filteredList.push({
                 start: moment(events[i].start.dateTime).hour(),
                 end: moment(events[i].end.dateTime).hour()
@@ -45,6 +45,13 @@ const generateResponse = (list) => {
         responseString += list[i].start + "-" + list[i].end + " ";
     }
     return responseString;
+}
+
+
+const parseDate = (date) => {
+    let indexOfT = date.indexOf("T");
+    let parsed = date.substring(0, indexOfT) + date.substring(indexOfT + 1, 16);
+    return parsed;
 }
 
 module.exports = { requestTimes, filter, generateResponse };

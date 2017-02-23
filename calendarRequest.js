@@ -47,4 +47,4 @@ const generateResponse = (list) => {
     return responseString;
 }
 
-module.exports = { requestTimes, filter };
+module.exports = { requestTimes, filter, generateResponse };

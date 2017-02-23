@@ -101,6 +101,7 @@ const actions = {
                 calendarRequest.requestTimes(date).then(function(response) {
                     let filteredList = calendarRequest.filter(response.data.items, sport);
                     context.times = calendarRequest.generateResponse(filteredList);
+                    delete context.missingDate;
                     return resolve(context);
                 }).catch(function(error) {
                     console.log(error);

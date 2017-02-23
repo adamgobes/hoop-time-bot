@@ -98,10 +98,9 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
             context.sport = sport;
-            console.log("hi");
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
-                    let filteredList = calendarRequest.filter(response.data.items, sport);
+                    let filteredList = calendarRequest.filter(response.data.items, context.sport);
                     context.times = calendarRequest.generateResponse(filteredList);
                     delete context.missingDate;
                     return resolve(context);

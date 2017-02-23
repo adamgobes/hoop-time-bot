@@ -99,7 +99,7 @@ const actions = {
             var sport = firstEntityValue(entities, "sport");
             context.sport = sport;
             if (date) {
-                console.log(context.sport);
+                console.log(context.sport, "hi");
                 calendarRequest.requestTimes(date).then(function(response) {
                     let filteredList = calendarRequest.filter(response.data.items, sport);
                     context.times = calendarRequest.generateResponse(filteredList);

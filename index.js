@@ -97,6 +97,7 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
+            context.sport = sport;
             if (date) {
                 console.log(context.sport);
                 calendarRequest.requestTimes(date).then(function(response) {

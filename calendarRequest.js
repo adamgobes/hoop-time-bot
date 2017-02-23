@@ -13,7 +13,7 @@ const requestTimes = (date) => {
 }
 
 const filter = (events, sport) => {
-    let returnString = "";
+    let filteredList = [];
     let eventString;
     switch (sport) {
         case "basketball":
@@ -25,10 +25,26 @@ const filter = (events, sport) => {
     }
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
-            returnString += " " + events[i].summary + " " + events[i].start.dateTime;
+            filteredList.push({
+                start: moment(events[i].start.dateTime).hour(),
+                end: moment(events[i].end.dateTime).hour()
+            });
         }
     }
-    return returnString;
+    return filteredList;
+}
+
+const generateResponse = (list) => {
+    if (list.length == 0) {
+        return "Sorry I did not find any times available for your request."
+    }
+
+    let responseString = "The available times I found are "
+
+    for (var i = 0; i < list.length; i++) {
+        responseString += list[i].start + "-" list[i].end + " ";
+    }
+    return responseString;
 }
 
 module.exports = { requestTimes, filter };

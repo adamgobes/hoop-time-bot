@@ -24,7 +24,7 @@ const filter = (events, sport) => {
     }
     for (var i = 0; i < events.length; i++) {
         if (events[i].summary.includes(eventString)) {
-            console.log(parseDate(events[i].start.dateTime));
+            console.log(moment(parseDate(events[i].start.dateTime)));
             filteredList.push({
                 start: moment(events[i].start.dateTime).hour(),
                 end: moment(events[i].end.dateTime).hour()
@@ -50,7 +50,7 @@ const generateResponse = (list) => {
 
 const parseDate = (date) => {
     let indexOfT = date.indexOf("T");
-    let parsed = date.substring(0, indexOfT) + date.substring(indexOfT + 1, 16);
+    let parsed = date.substring(0, indexOfT) + " " + date.substring(indexOfT + 1, 16);
     return parsed;
 }
 

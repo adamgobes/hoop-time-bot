@@ -125,7 +125,7 @@ const actions = {
                 calendarRequest.requestTimes(date).then(function(response) {
                     // let openSlots = calendarRequest.generateOpenSlots(response.data.items);
                     // context.times = calendarRequest.generateResponse(openSlots);
-                    // delete context.missingDate;
+                    delete context.missingDate;
                     context.times = "hello";
                     return resolve(context);
                 }).catch(function(error) {

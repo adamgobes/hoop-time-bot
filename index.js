@@ -93,7 +93,7 @@ const actions = {
             return Promise.resolve();
         }
     },
-    getTimes({context, entities}) {
+    getRecTimes({context, entities}) {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");

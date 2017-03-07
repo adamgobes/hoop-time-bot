@@ -39,7 +39,7 @@ const generateOpenSlots = (events) => {
 
 const allTimes = () => {
     let returnList = [];
-    for (int i = 0; i < 23; i++) {
+    for (var i = 0; i < 23; i++) {
         returnList.push(moment())
     }
 }

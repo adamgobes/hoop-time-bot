@@ -117,6 +117,27 @@ const actions = {
         });
 
     },
+
+    getGymTimes({context, entities}) {
+        return new Promise(function(resolve, reject) {
+            var date = firstEntityValue(entities, "datetime");
+            if (date) {
+                calendarRequest.requestTimes(date).then(function(response) {
+                    // let openSlots = calendarRequest.generateOpenSlots(response.data.items);
+                    // context.times = calendarRequest.generateResponse(openSlots);
+                    // delete context.missingDate;
+                    context.times = "hello";
+                    return resolve(context);
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            } else {
+                context.missingDate = true;
+                delete context.times;
+                return resolve(context);
+            }
+        });
+    }
 };
 
 const wit = new Wit({

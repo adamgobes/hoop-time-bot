@@ -34,7 +34,7 @@ const actions = {
         const {text, quickreplies} = response;
         console.log('sending...', JSON.stringify(response));
     },
-    getTimes({context, entities}) {
+    getRecTimes({context, entities}) {
         var date = firstEntityValue(entities, "datetime");
         var sport = firstEntityValue(entities, "sport");
         var times = calendarRequest.requestTimes(sport, date).then(function(response) {

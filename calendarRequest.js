@@ -33,6 +33,18 @@ const filter = (events, sport) => {
     return filteredList;
 }
 
+const generateOpenSlots = (events) => {
+    let allTimesList = allTimes();
+}
+
+const allTimes = () => {
+    let returnList = [];
+    for (int i = 0; i < 23; i++) {
+        returnList.push(moment())
+    }
+}
+
+
 const generateResponse = (list) => {
     if (list.length == 0) {
         return "Sorry I did not find any times available for your request."
@@ -53,4 +65,4 @@ const parseDate = (date) => {
     return parsed;
 }
 
-module.exports = { requestTimes, filter, generateResponse };
+module.exports = { requestTimes, filter, generateResponse, generateOpenSlots };

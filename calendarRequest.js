@@ -37,7 +37,6 @@ const filter = (events, sport) => {
 
 
 const generateOpenGymTimes = (events) => {
-    console.log(events);
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;
@@ -111,6 +110,7 @@ const generateOpenGymTimes = (events) => {
             lastTime = allTimesList[endTimeIndex];
         }
         for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
+            console.log(allTimesList[j]);
             allTimesList[j] = "";
         }
     }

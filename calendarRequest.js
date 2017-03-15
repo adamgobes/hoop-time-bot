@@ -37,7 +37,6 @@ const filter = (events, sport) => {
 
 
 const generateOpenGymTimes = (events) => {
-    console.log(events);
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;
@@ -110,6 +109,7 @@ const generateOpenGymTimes = (events) => {
             }
             lastTime = allTimesList[endTimeIndex];
         }
+        console.log(events[i].summary);
         for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
             if (events[i].summary == "McGill Quidditch (Gyms 3/4)") {
                 console.log('hi');

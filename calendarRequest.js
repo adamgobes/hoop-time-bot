@@ -33,16 +33,78 @@ const filter = (events, sport) => {
     return filteredList;
 }
 
-const generateOpenSlots = (events) => {
+
+
+
+const generateOpenGymTimes = (events) => {
+    const removeConsecBreaks = (array) => {
+        var returnArray = [];
+        var previousBreak = false;
+        for (var i = 0; i < array.length; i++) {
+            if (previousBreak && array[i].length != 0) {
+                previousBreak = false;
+            }
+            if (!previousBreak) {
+                returnArray.push(array[i]);
+            }
+            if (array[i].length == 0) {
+                previousBreak = true;
+            }
+        }
+        return returnArray;
+    }
+
+    const allTimes = () => {
+        let returnList = [];
+        for (var i = 8; i <= 22; i++) {
+            if (i < 10) {
+                returnList.push("0" + i + ":00");
+                returnList.push("0" + i + ":30");
+            } else {
+                returnList.push(i + ":00");
+                returnList.push(i + ":30");
+            }
+        }
+        return returnList;
+    }
+
+    const generateIntervals = (openSlots, returnArray) => {
+        let index = openSlots.indexOf("");
+        if (index === -1) {
+            return returnArray;
+        }
+        returnArray.push(openSlots[0] + "-" + openSlots[index-1]);
+        return generateIntervals(openSlots.slice(index + 1, openSlots.length), returnArray);
+    }
+
+    const generateResponse = (array) => {
+        let returnString = "The available times are ";
+        for (var i = 0; i < array.length; i++) {
+            returnString += array[i] + " ";
+        }
+    }
+
     let allTimesList = allTimes();
+    let lastTime = "";
+    for (var i = 0; i < events.length; i++) {
+        let startTimeIndex = allTimesList.indexOf(events[i].start.dateTime.substring(11, 16));
+        let endTimeIndex = allTimesList.indexOf(events[i].end.dateTime.substring(11, 16));
+        if (startTimeIndex === -1 ) {
+            continue;
+        } else {
+            if (lastTime == allTimesList[startTimeIndex]) {
+                allTimesList[startTimeIndex] = "";
+            }
+            lastTime = allTimesList[endTimeIndex];
+        }
+        for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
+            allTimesList[j] = "";
+        }
+    }
+
+    return generateResponse(generateIntervals(removeConsecBreaks(allTimesList)));
 }
 
-const allTimes = () => {
-    let returnList = [];
-    for (var i = 0; i < 23; i++) {
-        returnList.push(moment())
-    }
-}
 
 
 const generateResponse = (list) => {
@@ -65,4 +127,4 @@ const parseDate = (date) => {
     return parsed;
 }
 
-module.exports = { requestTimes, filter, generateResponse, generateOpenSlots };
+module.exports = { requestTimes, filter, generateResponse, generateOpenGymTimes };

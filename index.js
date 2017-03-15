@@ -123,10 +123,8 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
-                    // let openSlots = calendarRequest.generateOpenSlots(response.data.items);
-                    // context.times = calendarRequest.generateResponse(openSlots);
+                    context.times = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingDate;
-                    context.times = "hello";
                     return resolve(context);
                 }).catch(function(error) {
                     console.log(error);

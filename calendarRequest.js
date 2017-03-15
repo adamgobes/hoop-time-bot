@@ -57,7 +57,7 @@ const generateOpenGymTimes = (events) => {
 
     const allTimes = () => {
         let returnList = [];
-        for (var i = 8; i <= 22; i++) {
+        for (var i = 6; i <= 22; i++) {
             if (i < 10) {
                 returnList.push("0" + i + ":00");
                 returnList.push("0" + i + ":30");

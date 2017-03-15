@@ -135,7 +135,7 @@ const generateRecTimes = (events, sport) => {
         return "Sorry I did not find any times available for your request."
     }
 
-    let responseString = "The available times I found  to play " + sport + "are ";
+    let responseString = "The available times I found  to play " + sport + " are ";
 
     for (var i = 0; i < filteredList.length; i++) {
         responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00 ";

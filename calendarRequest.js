@@ -37,6 +37,7 @@ const filter = (events, sport) => {
 
 
 const generateOpenGymTimes = (events) => {
+    console.log(events);
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;
@@ -97,6 +98,7 @@ const generateOpenGymTimes = (events) => {
     }
 
     let allTimesList = allTimes();
+    let timesOccupied = [];
     let lastTime = "";
     for (var i = 0; i < events.length; i++) {
         let startTimeIndex = allTimesList.indexOf(events[i].start.dateTime.substring(11, 16));
@@ -109,7 +111,12 @@ const generateOpenGymTimes = (events) => {
             }
             lastTime = allTimesList[endTimeIndex];
         }
-        console.log(events[i].summary);
+        //construct an array with all times during which gym is being used
+        //remove duplicates
+        //if time is in aforementioned array, 'remove' it from allTimesList
+
+
+
         for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
             if (events[i].summary == "McGill Quidditch (Gyms 3/4)") {
                 console.log('hi');

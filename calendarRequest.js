@@ -110,7 +110,7 @@ const generateOpenGymTimes = (events) => {
             lastTime = allTimesList[endTimeIndex];
         }
         for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
-            if (events.summary == "McGill Quidditch (Gyms 3/4)") {
+            if (events[i].summary == "McGill Quidditch (Gyms 3/4)") {
                 console.log(allTimesList[j]);
             }
 

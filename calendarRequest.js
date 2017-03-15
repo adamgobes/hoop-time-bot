@@ -102,7 +102,7 @@ const generateOpenGymTimes = (events) => {
         }
     }
 
-    return generateResponse(generateIntervals(removeConsecBreaks(allTimesList)));
+    return generateResponse(generateIntervals(removeConsecBreaks(allTimesList)), []);
 }
 
 

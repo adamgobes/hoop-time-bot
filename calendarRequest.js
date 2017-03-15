@@ -15,7 +15,6 @@ const requestTimes = (date) => {
 
 
 const generateOpenGymTimes = (events) => {
-    console.log(events);
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;
@@ -63,6 +62,9 @@ const generateOpenGymTimes = (events) => {
     }
 
     const generateResponse = (array) => {
+        if (array.length == 0) {
+            return "Sorry, the gyms are not available on the date you requested";
+        }
         let returnString = "Gyms 1, 2, 3, and 4 are open from ";
         for (var i = 0; i < array.length; i++) {
             if (i != array.length - 1) {
@@ -133,7 +135,7 @@ const generateRecTimes = (events, sport) => {
         return "Sorry I did not find any times available for your request."
     }
 
-    let responseString = "The available times I found are "
+    let responseString = "The available times I found  to play " + sport + "are ";
 
     for (var i = 0; i < filteredList.length; i++) {
         responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00 ";

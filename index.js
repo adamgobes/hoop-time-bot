@@ -150,7 +150,7 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
-})
+});
 
 
 app.get('/webhook', (req, res) => {

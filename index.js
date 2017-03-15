@@ -102,8 +102,7 @@ const actions = {
             }
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
-                    let filteredList = calendarRequest.filter(response.data.items, context.sport);
-                    context.times = calendarRequest.generateResponse(filteredList);
+                    context.times = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingDate;
                     return resolve(context);
                 }).catch(function(error) {

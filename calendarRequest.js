@@ -11,28 +11,6 @@ const requestTimes = (date) => {
     return axios.get(url);
 }
 
-const filter = (events, sport) => {
-    let filteredList = [];
-    let eventString;
-    switch (sport) {
-        case "basketball":
-            eventString = "Rec Basketball";
-            break;
-        case "badminton":
-            eventString = "Rec Badminton";
-            break;
-    }
-    for (var i = 0; i < events.length; i++) {
-        if (events[i].summary.includes(eventString)) {
-            filteredList.push({
-                start: moment(parseDate(events[i].start.dateTime)).hour(),
-                end: moment(parseDate(events[i].end.dateTime)).hour()
-            });
-        }
-    }
-    return filteredList;
-}
-
 
 
 
@@ -103,45 +81,62 @@ const generateOpenGymTimes = (events) => {
     for (var i = 0; i < events.length; i++) {
         let startTimeIndex = allTimesList.indexOf(events[i].start.dateTime.substring(11, 16));
         let endTimeIndex = allTimesList.indexOf(events[i].end.dateTime.substring(11, 16));
-        if (startTimeIndex === -1 ) {
-            continue;
-        } else {
-            if (lastTime == allTimesList[startTimeIndex]) {
-                allTimesList[startTimeIndex] = "";
-            }
-            lastTime = allTimesList[endTimeIndex];
+
+        if (lastTime == allTimesList[startTimeIndex]) {
+            timesOccupied.push(allTimesList[startTimeIndex]);
         }
-        //construct an array with all times during which gym is being used
-        //remove duplicates
-        //if time is in aforementioned array, 'remove' it from allTimesList
 
-
+        lastTime = allTimesList[endTimeIndex];
 
         for (var j = startTimeIndex + 1; j < endTimeIndex; j++) {
-            if (events[i].summary == "McGill Quidditch (Gyms 3/4)") {
-                console.log('hi');
-                console.log(allTimesList[j]);
-            }
+            timesOccupied.push(allTimesList[j]);
+        }
+    }
 
+    for (var j = 0; j < allTimesList.length; j++) {
+        if (timesOccupied.indexOf(allTimesList[j]) != -1) {
             allTimesList[j] = "";
         }
     }
-    console.log(removeConsecBreaks(allTimesList));
 
     return generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
 }
 
 
+const generateRecTimes = (events, sport) => {
 
-const generateResponse = (list) => {
-    if (list.length == 0) {
+    const filter = (events, sport) => {
+        let filteredList = [];
+        let eventString;
+        switch (sport) {
+            case "basketball":
+                eventString = "Rec Basketball";
+                break;
+            case "badminton":
+                eventString = "Rec Badminton";
+                break;
+        }
+        for (var i = 0; i < events.length; i++) {
+            if (events[i].summary.includes(eventString)) {
+                filteredList.push({
+                    start: moment(parseDate(events[i].start.dateTime)).hour(),
+                    end: moment(parseDate(events[i].end.dateTime)).hour()
+                });
+            }
+        }
+        return filteredList;
+    }
+
+    let filteredList = filter(events, sport);
+
+    if (filteredList.length == 0) {
         return "Sorry I did not find any times available for your request."
     }
 
     let responseString = "The available times I found are "
 
-    for (var i = 0; i < list.length; i++) {
-        responseString += list[i].start + "-" + list[i].end + " ";
+    for (var i = 0; i < filteredList.length; i++) {
+        responseString += filteredList[i].start + "-" + filteredList[i].end + " ";
     }
     return responseString;
 }
@@ -153,4 +148,4 @@ const parseDate = (date) => {
     return parsed;
 }
 
-module.exports = { requestTimes, filter, generateResponse, generateOpenGymTimes };
+module.exports = { requestTimes, generateRecTimes, generateOpenGymTimes };

@@ -82,6 +82,7 @@ const generateOpenGymTimes = (events) => {
         for (var i = 0; i < array.length; i++) {
             returnString += array[i] + " ";
         }
+        return returnString;
     }
 
     let allTimesList = allTimes();

@@ -86,6 +86,7 @@ const generateOpenGymTimes = (events) => {
     }
 
     let allTimesList = allTimes();
+    console.log(allTimesList);
     let lastTime = "";
     for (var i = 0; i < events.length; i++) {
         let startTimeIndex = allTimesList.indexOf(events[i].start.dateTime.substring(11, 16));

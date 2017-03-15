@@ -72,6 +72,12 @@ const generateOpenGymTimes = (events) => {
     const generateIntervals = (openSlots, returnArray) => {
         let index = openSlots.indexOf("");
         if (index === -1) {
+            if (openSlots.length <= 1) {
+                return returnArray;
+            } else {
+                returnArray.push(openSlots[0] + "-" + openSlots[openSlots.length-1]);
+                return returnArray;
+            }
             return returnArray;
         }
         returnArray.push(openSlots[0] + "-" + openSlots[index-1]);
@@ -84,7 +90,7 @@ const generateOpenGymTimes = (events) => {
             if (i != array.length - 1) {
                 returnString += array[i] + ",";
             } else {
-                returnString += array[i];
+                returnString += " and " + array[i];
             }
 
         }

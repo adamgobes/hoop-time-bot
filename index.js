@@ -194,7 +194,7 @@ app.post('/webhook', (req, res) => {
                     }
                 } else if (event.postback) {
                     const sender = event.sender.id;
-                    fbMessage(sender, "Hey man!!");
+                    fbMessage(sender, "Hey! I'm the Hoop Time bot. I can tell you the times during which Gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play basketball?' or 'when is the gym open?'");
                 } else {
                     console.log('received event', JSON.stringify(event));
                 }

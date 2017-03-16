@@ -169,6 +169,7 @@ app.post('/webhook', (req, res) => {
     if (data.object === 'page') {
         data.entry.forEach(entry => {
             entry.messaging.forEach(event => {
+                console.log(event);
                 if (event.message && !event.message.is_echo) {
                     const sender = event.sender.id;
 
@@ -192,8 +193,6 @@ app.post('/webhook', (req, res) => {
                             console.error('Oops! Got an error from Wit: ', err.stack || err);
                         })
                     }
-                } else if (event.postback && event.postback.payload) {
-                    fbMessage(sender, "Hey man!!");
                 } else {
                     console.log('received event', JSON.stringify(event));
                 }

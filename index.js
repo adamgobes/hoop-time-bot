@@ -174,8 +174,6 @@ app.post('/webhook', (req, res) => {
 
                     const sessionId = findOrCreateSession(sender);
 
-                    console.log(event.message);
-
                     const {text, attachments} = event.message;
 
                     if (attachments) {
@@ -194,6 +192,8 @@ app.post('/webhook', (req, res) => {
                             console.error('Oops! Got an error from Wit: ', err.stack || err);
                         })
                     }
+                } else if (event.postback && event.postback.payload) {
+                    fbMessage(sender, "Hey man!!");
                 } else {
                     console.log('received event', JSON.stringify(event));
                 }

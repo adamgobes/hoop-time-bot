@@ -117,13 +117,6 @@ const actions = {
 
     },
 
-    introduceBot({context, entities}) {
-        return new Promise(function(resolve, reject) {
-            context.greeting = "Hey! I'm the HoopTime bot. I can tell you the various times you can use gyms 1, 2, 3, and 4. Ask me questions like 'when can I play basketball?' or 'when is the gym open?'"
-            return resolve(context);
-        });
-    },
-
     getGymTimes({context, entities}) {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
@@ -187,6 +180,9 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
+                        if (text == "Get Started") {
+                            fbMessage(sender, "Hello welcome to HoopTime");
+                        }
                         wit.runActions(
                             sessionId,
                             text,

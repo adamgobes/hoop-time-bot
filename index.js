@@ -193,6 +193,7 @@ app.post('/webhook', (req, res) => {
                         })
                     }
                 } else if (event.postback) {
+                    console.log('hi');
                     fbMessage(sender, "Hey man!!");
                 } else {
                     console.log('received event', JSON.stringify(event));

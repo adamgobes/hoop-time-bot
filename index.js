@@ -174,15 +174,14 @@ app.post('/webhook', (req, res) => {
 
                     const sessionId = findOrCreateSession(sender);
 
+                    console.log(event.message);
+
                     const {text, attachments} = event.message;
 
                     if (attachments) {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        if (text == "Get Started") {
-                            fbMessage(sender, "Hello welcome to HoopTime");
-                        }
                         wit.runActions(
                             sessionId,
                             text,

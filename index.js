@@ -135,13 +135,7 @@ const actions = {
                 return resolve(context);
             }
         });
-    },
-    // unhandledRequest({context, entities}) {
-    //     return new Promise(function(resolve, reject) {
-    //         context.response = "Sorry I don't know how to handle that request. If you want to know what I can answer type 'help'";
-    //         return resolve(context);
-    //     });
-    // }
+    }
 };
 
 const wit = new Wit({

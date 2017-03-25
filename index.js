@@ -103,7 +103,7 @@ const actions = {
             }
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
-                    context.times = calendarRequest.generateRecTimes(response.data.items, context.sport);
+                    context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingDate;
                     delete context.sport;
                     return resolve(context);
@@ -112,7 +112,7 @@ const actions = {
                 });
             } else {
                 context.missingDate = true;
-                delete context.times;
+                delete context.recTimes;
                 return resolve(context);
             }
         });
@@ -125,7 +125,7 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
-                    context.times = calendarRequest.generateOpenGymTimes(response.data.items);
+                    context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingDate;
                     return resolve(context);
                 }).catch(function(error) {
@@ -133,7 +133,7 @@ const actions = {
                 });
             } else {
                 context.missingDate = true;
-                delete context.times;
+                delete context.gymTimes;
                 return resolve(context);
             }
         });

@@ -94,6 +94,7 @@ const actions = {
         }
     },
     getRecTimes({context, entities}) {
+        console.log("getRecTimes ran");
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
@@ -119,6 +120,7 @@ const actions = {
     },
 
     getGymTimes({context, entities}) {
+        console.log("getGymTimes ran");
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             if (date) {

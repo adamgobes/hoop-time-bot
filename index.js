@@ -185,22 +185,17 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        if (text == "help") {
-                            fbMessage(sender, helpMessage);
-                        } else {
-                            wit.runActions(
-                                sessionId,
-                                text,
-                                sessions[sessionId].context
-                            ).then((context) => {
-                                console.log('Waiting for next user messages');
-                                sessions[sessionId].context = context;
-                            })
-                            .catch((err) => {
-                                console.error('Oops! Got an error from Wit: ', err.stack || err);
-                            });
-                        }
-
+                        wit.runActions(
+                            sessionId,
+                            text,
+                            sessions[sessionId].context
+                        ).then((context) => {
+                            console.log('Waiting for next user messages');
+                            sessions[sessionId].context = context;
+                        })
+                        .catch((err) => {
+                            console.error('Oops! Got an error from Wit: ', err.stack || err);
+                        });
                     }
                 } else if (event.postback) {
                     const sender = event.sender.id;

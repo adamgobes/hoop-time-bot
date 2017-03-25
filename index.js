@@ -140,7 +140,7 @@ const actions = {
         return new Promise(function(resolve, reject) {
             context.response = "I can tell you when you can play basketball, badminton, or when gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play badminton?', or 'when is the gym open?'";
         });
-    }
+    },
     unhandledRequest({context, entities}) {
         return new Promise(function(resolve, reject) {
             context.response = "Sorry I don't know how to handle that request. If you want to know what I can answer type 'help'";

@@ -136,12 +136,6 @@ const actions = {
             }
         });
     },
-    help({context, entities}) {
-        return new Promise(function(resolve, reject) {
-            context.response = "I can tell you when you can play basketball, badminton, or when gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play badminton?', or 'when is the gym open?'";
-            return resolve(context);
-        });
-    },
     unhandledRequest({context, entities}) {
         return new Promise(function(resolve, reject) {
             context.response = "Sorry I don't know how to handle that request. If you want to know what I can answer type 'help'";
@@ -189,21 +183,28 @@ app.post('/webhook', (req, res) => {
 
                     const {text, attachments} = event.message;
 
+                    const helpMessage = "I can tell you when you can play basketball, badminton, or when gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play badminton?', or 'when is the gym open?'";
+
                     if (attachments) {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        wit.runActions(
-                            sessionId,
-                            text,
-                            sessions[sessionId].context
-                        ).then((context) => {
-                            console.log('Waiting for next user messages');
-                            sessions[sessionId].context = context;
-                        })
-                        .catch((err) => {
-                            console.error('Oops! Got an error from Wit: ', err.stack || err);
-                        })
+                        if (text == "help") {
+                            fbMessage(sender, helpMessage);
+                        } else {
+                            wit.runActions(
+                                sessionId,
+                                text,
+                                sessions[sessionId].context
+                            ).then((context) => {
+                                console.log('Waiting for next user messages');
+                                sessions[sessionId].context = context;
+                            })
+                            .catch((err) => {
+                                console.error('Oops! Got an error from Wit: ', err.stack || err);
+                            });
+                        }
+
                     }
                 } else if (event.postback) {
                     const sender = event.sender.id;

@@ -94,7 +94,6 @@ const actions = {
         }
     },
     getRecTimes({context, entities}) {
-        console.log("getRecTimes ran");
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
@@ -120,7 +119,6 @@ const actions = {
     },
 
     getGymTimes({context, entities}) {
-        console.log("getGymTimes ran");
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             if (date) {
@@ -185,17 +183,21 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        wit.runActions(
-                            sessionId,
-                            text,
-                            sessions[sessionId].context
-                        ).then((context) => {
-                            console.log('Waiting for next user messages');
-                            sessions[sessionId].context = context;
-                        })
-                        .catch((err) => {
-                            console.error('Oops! Got an error from Wit: ', err.stack || err);
-                        });
+                        if (text == "help") {
+                            fbMessage(sender, helpMessage);
+                        } else {
+                            wit.runActions(
+                                sessionId,
+                                text,
+                                sessions[sessionId].context
+                            ).then((context) => {
+                                console.log('Waiting for next user messages');
+                                sessions[sessionId].context = context;
+                            })
+                            .catch((err) => {
+                                console.error('Oops! Got an error from Wit: ', err.stack || err);
+                            });
+                        }
                     }
                 } else if (event.postback) {
                     const sender = event.sender.id;

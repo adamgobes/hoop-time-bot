@@ -105,7 +105,15 @@ const actions = {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingDate;
                     delete context.sport;
-                    return resolve(context);
+                    /*
+                    temporary stuff
+                    */
+                    let tempContext = context;
+                    context = {};
+                    /*
+                    end of temporary stuff
+                    */
+                    return resolve(tempContext);
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -125,7 +133,9 @@ const actions = {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingDate;
-                    return resolve(context);
+                    let tempContext = context;
+                    context = {};
+                    return resolve(tempContext);
                 }).catch(function(error) {
                     console.log(error);
                 });

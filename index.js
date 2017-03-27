@@ -94,7 +94,6 @@ const actions = {
         }
     },
     getRecTimes({context, entities}) {
-        console.log(context);
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
@@ -106,21 +105,15 @@ const actions = {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingDate;
                     delete context.sport;
-                    /*
-                    temporary stuff
-                    */
-                    let tempContext = context;
-                    context = {};
-                    /*
-                    end of temporary stuff
-                    */
-                    return resolve(tempContext);
+                    console.log(context);
+                    return resolve(context);
                 }).catch(function(error) {
                     console.log(error);
                 });
             } else {
                 context.missingDate = true;
                 delete context.recTimes;
+                console.log(context);
                 return resolve(context);
             }
         });
@@ -128,22 +121,21 @@ const actions = {
     },
 
     getGymTimes({context, entities}) {
-        console.log(context);
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingDate;
-                    let tempContext = context;
-                    context = {};
-                    return resolve(tempContext);
+                    console.log(context);
+                    return resolve(context);
                 }).catch(function(error) {
                     console.log(error);
                 });
             } else {
                 context.missingDate = true;
                 delete context.gymTimes;
+                console.log(context);
                 return resolve(context);
             }
         });

@@ -105,8 +105,8 @@ const actions = {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingDate;
                     delete context.sport;
-                    console.log(context);
-                    return resolve(context, "getRecTimes ran");
+                    console.log(context, "getRecTimes ran");
+                    return resolve(context);
                 }).catch(function(error) {
                     console.log(error);
                 });

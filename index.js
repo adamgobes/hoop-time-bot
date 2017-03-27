@@ -146,7 +146,7 @@ const actions = {
     unhandledRequest({context, entities}) {
         context = {};
         return new Promise(function(resolve, reject) {
-            context.response = "Sorry I don't know how to handle that.";
+            context.response = "Sorry I don't know how to handle that. If you want to know what I can do, type 'help'";
             return resolve(context);
         });
     }

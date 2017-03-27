@@ -103,7 +103,7 @@ const actions = {
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
-                    delete context.missingDate;
+                    delete context.missingRecDate;
                     delete context.sport;
                     console.log(context, "getRecTimes ran");
                     return resolve(context);
@@ -111,7 +111,7 @@ const actions = {
                     console.log(error);
                 });
             } else {
-                context.missingDate = true;
+                context.missingRecDate = true;
                 delete context.recTimes;
                 console.log(context, "getRecTimes ran");
                 return resolve(context);
@@ -126,14 +126,14 @@ const actions = {
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
-                    delete context.missingDate;
+                    delete context.missingGymDate;
                     console.log(context, "getGymTimes ran");
                     return resolve(context);
                 }).catch(function(error) {
                     console.log(error);
                 });
             } else {
-                context.missingDate = true;
+                context.missingGymDate = true;
                 delete context.gymTimes;
                 console.log(context, "getGymTimes ran");
                 return resolve(context);

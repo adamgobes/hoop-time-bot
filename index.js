@@ -106,14 +106,14 @@ const actions = {
                     delete context.missingDate;
                     delete context.sport;
                     console.log(context);
-                    return resolve(context);
+                    return resolve(context, "getRecTimes ran");
                 }).catch(function(error) {
                     console.log(error);
                 });
             } else {
                 context.missingDate = true;
                 delete context.recTimes;
-                console.log(context);
+                console.log(context, "getRecTimes ran");
                 return resolve(context);
             }
         });
@@ -127,7 +127,7 @@ const actions = {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingDate;
-                    console.log(context);
+                    console.log(context, "getGymTimes ran");
                     return resolve(context);
                 }).catch(function(error) {
                     console.log(error);
@@ -135,7 +135,7 @@ const actions = {
             } else {
                 context.missingDate = true;
                 delete context.gymTimes;
-                console.log(context);
+                console.log(context, "getGymTimes ran");
                 return resolve(context);
             }
         });

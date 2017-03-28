@@ -96,6 +96,13 @@ const actions = {
     getRecTimes({context, entities}) {
         context = {};
         return new Promise(function(resolve, reject) {
+            var intent = firstEntityValue(entities, "intent");
+            if (!intent) {
+                context.recTimes = "Sorry I don't know how to handle that.";
+                return resolve(context);
+            }
+
+
             var date = firstEntityValue(entities, "datetime");
             var sport = firstEntityValue(entities, "sport");
             if (sport) {
@@ -124,6 +131,13 @@ const actions = {
     getGymTimes({context, entities}) {
         context = {};
         return new Promise(function(resolve, reject) {
+            var intent = firstEntityValue(entities, "intent");
+            if (!intent) {
+                context.gymTimes = "Sorry I don't know how to handle that.";
+                return resolve(context);
+            }
+
+
             var date = firstEntityValue(entities, "datetime");
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {

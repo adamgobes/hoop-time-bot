@@ -130,6 +130,7 @@ const generateRecTimes = (events, sport) => {
     }
 
     let filteredList = filter(events, sport);
+    console.log(filteredList);
 
     if (filteredList.length == 0) {
         return "Sorry I did not find any times available for your request."

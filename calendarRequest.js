@@ -19,6 +19,7 @@ const requestTimes = (date, activity) => {
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }
+    console.log(calendarId);
 
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
@@ -122,7 +123,6 @@ const generateOpenGymTimes = (events) => {
 
 
 const generateRecTimes = (events, sport) => {
-    console.log(events);
     const filter = (events, sport) => {
         let filteredList = [];
         let eventString;

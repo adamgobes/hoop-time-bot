@@ -135,12 +135,12 @@ const generateRecTimes = (events, sport) => {
 
             case "swimming":
             case "swim":
-                console.log('this ran');
                 eventString = "Rec Swim";
                 break;
         }
         for (var i = 0; i < events.length; i++) {
             if (events[i].summary.includes(eventString)) {
+                console.log(events[i].summary);
                 filteredList.push({
                     start: moment(parseDate(events[i].start.dateTime)).hour(),
                     end: moment(parseDate(events[i].end.dateTime)).hour()

@@ -7,12 +7,12 @@ const requestTimes = (date, activity) => {
 
     switch (activity) {
         case "basketball":
-        case "badminton":
-        case "currie":
             calendarId = "athleticsmcgill@gmail.com";
             break;
+        default:
+            calendarId = "athleticsmcgill@gmail.com";
     }
-    
+
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";

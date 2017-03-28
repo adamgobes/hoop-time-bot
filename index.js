@@ -97,7 +97,7 @@ const actions = {
         context = {};
         return new Promise(function(resolve, reject) {
             var intent = firstEntityValue(entities, "intent");
-            if (!intent) {
+            if (!intent && !context.missingRecDate) {
                 context.recTimes = "Sorry I don't know how to handle that.";
                 return resolve(context);
             }
@@ -132,7 +132,7 @@ const actions = {
         context = {};
         return new Promise(function(resolve, reject) {
             var intent = firstEntityValue(entities, "intent");
-            if (!intent) {
+            if (!intent && !context.missingGymDate) {
                 context.gymTimes = "Sorry I don't know how to handle that.";
                 return resolve(context);
             }

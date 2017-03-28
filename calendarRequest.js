@@ -106,7 +106,6 @@ const generateOpenGymTimes = (events) => {
 
 
 const generateRecTimes = (events, sport) => {
-    console.log(events);
     const filter = (events, sport) => {
         let filteredList = [];
         let eventString;
@@ -120,6 +119,7 @@ const generateRecTimes = (events, sport) => {
         }
         for (var i = 0; i < events.length; i++) {
             if (events[i].summary.includes(eventString)) {
+                console.log('happened');
                 filteredList.push({
                     start: moment(parseDate(events[i].start.dateTime)).hour(),
                     end: moment(parseDate(events[i].end.dateTime)).hour()
@@ -130,6 +130,7 @@ const generateRecTimes = (events, sport) => {
     }
 
     let filteredList = filter(events, sport);
+
 
     if (filteredList.length == 0) {
         return "Sorry I did not find any times available for your request."

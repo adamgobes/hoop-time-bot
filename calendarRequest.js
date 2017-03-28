@@ -2,8 +2,17 @@ const axios = require('axios');
 const moment = require('moment');
 
 
-const requestTimes = (date) => {
-    const calendarId = "athleticsmcgill@gmail.com";
+const requestTimes = (date, activity) => {
+    const calendarId;
+
+    switch (activity) {
+        case "basketball":
+        case "badminton":
+        case "currie":
+            calendarId = "athleticsmcgill@gmail.com";
+            break;
+    }
+    
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";

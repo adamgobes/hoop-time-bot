@@ -131,7 +131,7 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var intent = firstEntityValue(entities, "intent");
             if (!intent && !context.missingGymDate) {
-                console.log(context.missingGymDate);
+                console.log(context);
                 context.gymTimes = "Sorry I don't know how to handle that.";
                 return resolve(context);
             }

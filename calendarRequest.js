@@ -12,6 +12,10 @@ const requestTimes = (date, activity) => {
             calendarId = "athleticsmcgill@gmail.com";
             break;
 
+        case "swimming"
+        case "swim":
+            calendarId = "gvfv48ia1o6tj5ourq6r63oon4@group.calendar.google.com";
+
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }
@@ -127,6 +131,11 @@ const generateRecTimes = (events, sport) => {
                 break;
             case "badminton":
                 eventString = "Rec Badminton";
+                break;
+
+            case "swimming":
+            case "swim":
+                eventString = "Rec Swim";
                 break;
         }
         for (var i = 0; i < events.length; i++) {

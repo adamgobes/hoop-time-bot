@@ -106,7 +106,6 @@ const generateOpenGymTimes = (events) => {
 
 
 const generateRecTimes = (events, sport) => {
-    console.log(sport);
     const filter = (events, sport) => {
         let filteredList = [];
         let eventString;

@@ -101,6 +101,7 @@ const actions = {
             if (sport) {
                 context.sport = sport;
             }
+            console.log(context.sport);
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);

@@ -19,7 +19,7 @@ const requestTimes = (date, activity) => {
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }
-
+    console.log(calendarId);
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
     const myKey = "AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w";

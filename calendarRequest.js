@@ -2,7 +2,7 @@ const axios = require('axios');
 const moment = require('moment');
 
 
-const requestTimes = (date) => {
+const requestTimesGym = (date) => {
     const calendarId = "athleticsmcgill@gmail.com";
     let desiredDate = moment(date).toISOString();
     let dayAfter = moment(date).add(1, "days").toISOString();
@@ -150,4 +150,4 @@ const parseDate = (date) => {
     return parsed;
 }
 
-module.exports = { requestTimes, generateRecTimes, generateOpenGymTimes };
+module.exports = { requestTimesGym, generateRecTimes, generateOpenGymTimes };

@@ -135,6 +135,7 @@ const generateRecTimes = (events, sport) => {
 
             case "swimming":
             case "swim":
+                console.log('this ran');
                 eventString = "Rec Swim";
                 break;
         }

@@ -104,6 +104,7 @@ const actions = {
             if (date) {
                 calendarRequest.requestTimes(date).then(function(response) {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
+                    console.log(response.data.items);
                     delete context.missingRecDate;
                     delete context.sport;
                     return resolve(context);

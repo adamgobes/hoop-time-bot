@@ -102,7 +102,7 @@ const actions = {
                 context.sport = sport;
             }
             if (date) {
-                calendarRequest.requestTimesGym(date).then(function(response) {
+                calendarRequest.requestTimes(date).then(function(response) {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
                     delete context.missingRecDate;
                     delete context.sport;
@@ -124,7 +124,7 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             if (date) {
-                calendarRequest.requestTimesGym(date).then(function(response) {
+                calendarRequest.requestTimes(date).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingGymDate;
                     return resolve(context);

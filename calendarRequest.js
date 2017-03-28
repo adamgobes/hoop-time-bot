@@ -15,7 +15,7 @@ const requestTimes = (date, activity) => {
         case "swimming":
         case "swim":
             calendarId = "gvfv48ia1o6tj5ourq6r63oon4@group.calendar.google.com";
-
+            break;
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }

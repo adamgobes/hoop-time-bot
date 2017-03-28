@@ -137,6 +137,13 @@ const actions = {
                 return resolve(context);
             }
         });
+    },
+    unhandledRequest({context, entities}) {
+        context = {};
+        return new Promise(function(resolve, reject) {
+            context.response = "Sorry I don't know how to handle that";
+            return resolve(context);
+        });
     }
 };
 

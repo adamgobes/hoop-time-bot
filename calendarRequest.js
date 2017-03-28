@@ -3,12 +3,15 @@ const moment = require('moment');
 
 
 const requestTimes = (date, activity) => {
-    const calendarId;
+    let calendarId;
 
     switch (activity) {
         case "basketball":
+        case "badminton":
+        case "currie":
             calendarId = "athleticsmcgill@gmail.com";
             break;
+
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }

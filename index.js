@@ -130,8 +130,8 @@ const actions = {
         context = {};
         return new Promise(function(resolve, reject) {
             var intent = firstEntityValue(entities, "intent");
-            console.log(context.missingGymDate);
             if (!intent && !context.missingGymDate) {
+                console.log(context.missingGymDate);
                 context.gymTimes = "Sorry I don't know how to handle that.";
                 return resolve(context);
             }

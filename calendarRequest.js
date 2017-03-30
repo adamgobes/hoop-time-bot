@@ -83,7 +83,11 @@ const generateOpenGymTimes = (events) => {
         }
         let returnString = "Gyms 1, 2, 3, and 4 are open from ";
         for (var i = 0; i < array.length; i++) {
-            returnString += array[i] + ",";
+            if (i == array.length - 1) {
+                returnString += array[i];
+            } else {
+                returnString += array[i] + ",";
+            }
         }
         return returnString;
     }

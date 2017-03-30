@@ -83,12 +83,7 @@ const generateOpenGymTimes = (events) => {
         }
         let returnString = "Gyms 1, 2, 3, and 4 are open from ";
         for (var i = 0; i < array.length; i++) {
-            if (i != array.length - 1) {
-                returnString += array[i] + ",";
-            } else {
-                returnString += " and " + array[i];
-            }
-
+            returnString += array[i] + ",";
         }
         return returnString;
     }
@@ -160,7 +155,7 @@ const generateRecTimes = (events, sport) => {
     let responseString = (sport == "swimming") || (sport == "swim") ? "The available times I found to go " + sport + " are "  : "The available times I found to play " + sport + " are ";
 
     for (var i = 0; i < filteredList.length; i++) {
-        responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00 ";
+        responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00, ";
     }
     return responseString;
 }

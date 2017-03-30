@@ -16,6 +16,9 @@ const requestTimes = (date, activity) => {
         case "swim":
             calendarId = "gvfv48ia1o6tj5ourq6r63oon4@group.calendar.google.com";
             break;
+        case "soccer":
+        case "volleyball":
+            calendarId = "nt3abkietk5e709ifldk6g50dk@group.calendar.google.com";
         default:
             calendarId = "athleticsmcgill@gmail.com";
     }
@@ -159,7 +162,11 @@ const generateRecTimes = (events, sport) => {
     let responseString = (sport == "swimming") || (sport == "swim") ? "The available times I found to go " + sport + " are "  : "The available times I found to play " + sport + " are ";
 
     for (var i = 0; i < filteredList.length; i++) {
-        responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00, ";
+        if (i == filteredList.length - 1) {
+            responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00";
+        } else {
+            responseString += filteredList[i].start + ":00-" + filteredList[i].end + ":00, ";
+        }
     }
     return responseString;
 }

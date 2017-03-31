@@ -128,7 +128,7 @@ const actions = {
                 context.facility = facility;
             }
             if (date) {
-                calendarRequest.requestTimes(date, facility).then(function(response) {
+                calendarRequest.requestTimes(date, context.facility).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingGymDate;
                     delete context.facility;

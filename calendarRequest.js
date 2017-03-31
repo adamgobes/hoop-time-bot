@@ -3,6 +3,7 @@ const moment = require('moment');
 
 
 const requestTimes = (date, activity) => {
+    console.log(activity);
     let calendarId;
 
     switch (activity) {

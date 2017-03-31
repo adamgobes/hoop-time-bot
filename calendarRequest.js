@@ -140,6 +140,13 @@ const generateRecTimes = (events, sport) => {
             case "swim":
                 eventString = "Rec Swim";
                 break;
+
+            case "soccer":
+                eventString = "Drop-In Soccer";
+                break;
+            case "volleyball"
+                eventString = "Drop-In Volleyball";
+                break;
         }
         for (var i = 0; i < events.length; i++) {
             if (events[i].summary.includes(eventString)) {

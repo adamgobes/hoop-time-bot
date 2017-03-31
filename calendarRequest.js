@@ -144,7 +144,7 @@ const generateRecTimes = (events, sport) => {
             case "soccer":
                 eventString = "Drop-In Soccer";
                 break;
-            case "volleyball"
+            case "volleyball":
                 eventString = "Drop-In Volleyball";
                 break;
         }

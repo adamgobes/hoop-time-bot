@@ -86,7 +86,7 @@ const generateOpenGymTimes = (events) => {
         if (array.length == 0) {
             return "Sorry, the gyms are not available on the date you requested";
         }
-        let returnString = "Gyms 1, 2, 3, and 4 are open from ";
+        let returnString = "";
         for (var i = 0; i < array.length; i++) {
             if (i == array.length - 1) {
                 returnString += array[i];

@@ -125,7 +125,6 @@ const actions = {
             var date = firstEntityValue(entities, "datetime");
             var facility = firstEntityValue(entities, "facility");
             if (facility) {
-                console.log('happened');
                 context.facility = facility;
             }
             if (date) {

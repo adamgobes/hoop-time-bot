@@ -150,6 +150,7 @@ const generateRecTimes = (events, sport) => {
         }
         for (var i = 0; i < events.length; i++) {
             if (events[i].summary.includes(eventString)) {
+                console.log('hi');
                 console.log(events[i].summary);
                 filteredList.push({
                     start: moment(parseDate(events[i].start.dateTime)).hour(),

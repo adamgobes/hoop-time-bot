@@ -8,7 +8,7 @@ const requestTimes = (date, activity) => {
     switch (activity) {
         case "basketball":
         case "badminton":
-        case "currie":
+        case "gym":
             calendarId = "athleticsmcgill@gmail.com";
             break;
 
@@ -18,6 +18,7 @@ const requestTimes = (date, activity) => {
             break;
         case "soccer":
         case "volleyball":
+        case "fieldhouse":
             calendarId = "nt3abkietk5e709ifldk6g50dk@group.calendar.google.com";
             break;
         default:

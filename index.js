@@ -101,7 +101,6 @@ const actions = {
             if (sport) {
                 context.sport = sport;
             }
-            console.log(context.sport);
             if (date) {
                 calendarRequest.requestTimes(date, context.sport).then(function(response) {
                     context.recTimes = calendarRequest.generateRecTimes(response.data.items, context.sport);
@@ -125,10 +124,14 @@ const actions = {
         return new Promise(function(resolve, reject) {
             var date = firstEntityValue(entities, "datetime");
             var facility = firstEntityValue(entities, "facility");
+            if (facility) {
+                context.facility = facility;
+            }
             if (date) {
                 calendarRequest.requestTimes(date, facility).then(function(response) {
                     context.gymTimes = calendarRequest.generateOpenGymTimes(response.data.items);
                     delete context.missingGymDate;
+                    delete context.facility;
                     return resolve(context);
                 }).catch(function(error) {
                     console.log(error);

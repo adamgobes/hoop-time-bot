@@ -190,7 +190,7 @@ app.post('/webhook', (req, res) => {
 
                     const {text, attachments} = event.message;
 
-                    const helpMessage = "I can tell you when you can play basketball, badminton, or when gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play badminton?', or 'when is the gym open?'";
+                    const helpMessage = "I can tell you when you can play basketball, badminton, volleyball, soccer, or even when you can go swimming. I can also tell you when gyms 1, 2, 3, 4 and the fieldhouse are open. Ask me questions like 'when can I play badminton?', or 'when is the fieldhouse open?'";
 
                     if (attachments) {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')

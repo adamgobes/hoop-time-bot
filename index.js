@@ -142,6 +142,12 @@ const actions = {
                 return resolve(context);
             }
         });
+    },
+    unhandledRequest({context, entities}) {
+        return new Promise(function(resolve, reject) {
+            context.response = "Sorry I don't know how to handle that. To see what I can do, type 'help'";
+            return resolve(context);
+        });
     }
 };
 

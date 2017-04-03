@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const calendarRequest = require('./calendarRequest');
+const http = require('http');
 
 const app = express();
 
@@ -223,6 +224,11 @@ app.post('/webhook', (req, res) => {
     }
     res.sendStatus(200);
 });
+
+
+setInterval(function() {
+    http.get("https://hoop-time-bot.herokuapp.com");
+}, 300000);
 
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))

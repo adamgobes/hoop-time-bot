@@ -196,7 +196,7 @@ app.post('/webhook', (req, res) => {
                         fbMessage(sender, 'Sorry I can only process text messages for now.')
                         .catch(console.error);
                     } else if (text) {
-                        if (text == "help") {
+                        if (text.toUpperCase() == "help") {
                             fbMessage(sender, helpMessage);
                         } else {
                             wit.runActions(

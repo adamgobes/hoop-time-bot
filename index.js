@@ -231,5 +231,5 @@ setInterval(function() {
 }, 300000);
 
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
+    console.log('running on port', app.get('port'));
 });

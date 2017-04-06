@@ -94,7 +94,6 @@ const generateOpenGymTimes = (events) => {
                 returnString += array[i] + ",";
             }
         }
-        console.log(returnString);
         return returnString;
     }
 

@@ -36,6 +36,7 @@ const requestTimes = (date, activity) => {
 
 
 const generateOpenGymTimes = (events) => {
+    console.log(events);
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;

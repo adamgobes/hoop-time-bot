@@ -36,8 +36,7 @@ const requestTimes = (date, activity) => {
 
 
 const generateOpenGymTimes = (events) => {
-    console.log(events);
-    if (events.length == 0) {
+    if (events.length <= 1) {
         return "Sorry, the gyms are not available on the date you requested";
     }
     const removeConsecBreaks = (array) => {

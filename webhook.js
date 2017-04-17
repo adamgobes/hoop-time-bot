@@ -28,7 +28,7 @@ app.get('/webhook', (req, res) => {
 
 
 app.post('/webhook', (req, res) => {
-    console.log(req.body);
+    console.log('/webhook ran');
     if (req.body.object === 'page') {
         req.body.entry.forEach((entry) => {
             entry.messaging.forEach((event) => {
@@ -51,7 +51,6 @@ function sendMessage(event) {
     });
 
     apiai.on('response', (response) => {
-        console.log(response)
         let aiText = response.result.fulfillment.speech;
 
         request({
@@ -80,5 +79,5 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-    console.log(req.body.result);
+    console.log('/ai ran');
 });

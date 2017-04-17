@@ -79,6 +79,7 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
+    console.log('ai ran');
     let msg = "hiiii";
     return res.json({
         speech: msg,

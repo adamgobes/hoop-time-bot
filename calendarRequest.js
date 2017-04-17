@@ -121,7 +121,7 @@ const generateOpenGymTimes = (events) => {
         }
     }
 
-    return generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
+    return "The available times I found to use this facility are " + generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
 }
 
 

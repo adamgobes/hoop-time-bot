@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
+const http = require('http');
 
 const calendarRequest = require('./calendarRequest');
 
@@ -18,6 +19,11 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai(APIAI_TOKEN);
+
+
+app.get('/', function (req, res) {
+    res.send('Hello, this is the server for the HoopTime chat bot');
+});
 
 
 app.get('/webhook', (req, res) => {
@@ -128,3 +134,8 @@ app.post('/ai', (req, res) => {
     }
 
 });
+
+
+setInterval(function() {
+    http.get("http://hoop-time-bot.herokuapp.com");
+}, 300000);

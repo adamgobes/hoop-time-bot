@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
 
+const calendarRequest = require('./calendarRequest');
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,11 +81,19 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-    console.log(req.body.result);
-    let msg = "hiiii";
+    let date = req.body.result.date;
+    let sport = req.body.result.sport;
+    let times = calendarRequest.requestTimes(date, sport).then(function(response) {
+        console.log(response);
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+
+    let msg = "";
     return res.json({
         speech: msg,
         displayText: msg,
-        source: 'weather'
+        source: 'rec'
     });
 });

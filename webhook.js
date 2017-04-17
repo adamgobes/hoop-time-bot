@@ -99,6 +99,7 @@ app.post('/ai', (req, res) => {
         console.log(date, facility);
         let times = calendarRequest.requestTimes(date, facility).then(function(response) {
             let msg = calendarRequest.generateOpenGymTimes(response.data.items);
+            console.log(msg);
             return res.json({
                 speech: msg,
                 displayText: msg,

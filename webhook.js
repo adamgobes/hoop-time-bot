@@ -35,6 +35,23 @@ app.post('/webhook', (req, res) => {
             entry.messaging.forEach((event) => {
                 if (event.message && event.message.text) {
                     sendMessage(event);
+                } else if (event.postback) {
+                    let getStartedMsg = "Hey! I'm the HoopTime bot. I can tell you the times during which Gyms 1, 2, 3, and 4 are open. Ask me questions like 'when can I play basketball?' or 'when is the gym open?'"
+                    request({
+                        url: 'https://graph.facebook.com/v2.6/me/messages',
+                        qs: {access_token: PAGE_ACCESS_TOKEN},
+                        method: 'POST',
+                        json: {
+                            recipient: {id: event.sender.id},
+                            message: {text: getStartedMsg}
+                        }
+                    }, (error, response) => {
+                        if (error) {
+                            console.log('Error sending message: ', error);
+                        } else if (response.body.error) {
+                            console.log('Error: ', response.body.error);
+                        }
+                    });
                 }
             });
         });

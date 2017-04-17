@@ -84,16 +84,13 @@ app.post('/ai', (req, res) => {
     let date = req.body.result.date;
     let sport = req.body.result.sport;
     let times = calendarRequest.requestTimes(date, sport).then(function(response) {
-        console.log(response);
+        let msg = calendarRequest.generateRecTimes(response.data.items, sport);
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'rec'
+        });
     }).catch(function(err) {
         console.log(err);
-    });
-
-
-    let msg = "";
-    return res.json({
-        speech: msg,
-        displayText: msg,
-        source: 'rec'
     });
 });

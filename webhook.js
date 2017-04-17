@@ -80,17 +80,32 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-    let date = req.body.result.parameters.date;
-    let sport = req.body.result.parameters.sport;
-    console.log(date, sport);
-    let times = calendarRequest.requestTimes(date, sport).then(function(response) {
-        let msg = calendarRequest.generateRecTimes(response.data.items, sport);
-        return res.json({
-            speech: msg,
-            displayText: msg,
-            source: 'rec'
+    if (req.body.result.action == "find_rec") {
+        let date = req.body.result.parameters.date;
+        let sport = req.body.result.parameters.sport;
+        let times = calendarRequest.requestTimes(date, sport).then(function(response) {
+            let msg = calendarRequest.generateRecTimes(response.data.items, sport);
+            return res.json({
+                speech: msg,
+                displayText: msg,
+                source: 'rec'
+            });
+        }).catch(function(err) {
+            console.log(err);
         });
-    }).catch(function(err) {
-        console.log(err);
-    });
+    } else if (req.body.result.action == "find_gym") {
+        let date = req.body.result.parameters.date;
+        let facility = req.body.result.parameters.facility;
+        let times = calendarRequest.requestTimes(date, facility).then(function(response) {
+            let msg = calendarRequest.generateOpenGymTimes(response.data.items);
+            return res.json({
+                speech: msg,
+                displayText: msg,
+                source: 'rec'
+            });
+        }).catch(function(err) {
+            console.log(err);
+        });
+    }
+
 });

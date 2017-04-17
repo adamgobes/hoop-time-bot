@@ -80,8 +80,8 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-    let date = req.body.result.date;
-    let sport = req.body.result.sport;
+    let date = req.body.result.parameters.date;
+    let sport = req.body.result.parameters.sport;
     console.log(date, sport);
     let times = calendarRequest.requestTimes(date, sport).then(function(response) {
         let msg = calendarRequest.generateRecTimes(response.data.items, sport);

@@ -36,6 +36,9 @@ const requestTimes = (date, activity) => {
 
 
 const generateOpenGymTimes = (events) => {
+    if (events.length == 0) {
+        return "This facility is free the whole day!";
+    }
     const removeConsecBreaks = (array) => {
         var returnArray = [];
         var previousBreak = false;

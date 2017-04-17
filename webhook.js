@@ -96,7 +96,7 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action == "find_gym") {
         let date = req.body.result.parameters.date;
         let facility = req.body.result.parameters.facility;
-        console.log(date, facility);
+        console.log(req.body.result.parameters);
         let times = calendarRequest.requestTimes(date, facility).then(function(response) {
             let msg = calendarRequest.generateOpenGymTimes(response.data.items);
             return res.json({

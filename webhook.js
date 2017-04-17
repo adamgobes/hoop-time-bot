@@ -30,7 +30,6 @@ app.get('/webhook', (req, res) => {
 
 
 app.post('/webhook', (req, res) => {
-    console.log('/webhook ran');
     if (req.body.object === 'page') {
         req.body.entry.forEach((entry) => {
             entry.messaging.forEach((event) => {
@@ -83,6 +82,7 @@ function sendMessage(event) {
 app.post('/ai', (req, res) => {
     let date = req.body.result.date;
     let sport = req.body.result.sport;
+    console.log(date, sport);
     let times = calendarRequest.requestTimes(date, sport).then(function(response) {
         let msg = calendarRequest.generateRecTimes(response.data.items, sport);
         return res.json({

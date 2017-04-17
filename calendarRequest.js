@@ -38,7 +38,7 @@ const requestTimes = (date, activity) => {
 const generateOpenGymTimes = (events) => {
     if (events.length == 0) {
         return "This facility is free the whole day!";
-    } else if (events[0].summary = "Exams") {
+    } else if (events[0].summary == "Exams") {
         return "Exams season is unfortunately upon us. All the facilities are occupied :(";
     }
     const removeConsecBreaks = (array) => {

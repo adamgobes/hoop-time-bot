@@ -1,4 +1,6 @@
+const moment = require('moment');
 const parseDate = require('./utilities').parseDate;
+
 
 const generateRecTimes = (events, sport) => {
     const filter = (events, sport) => {

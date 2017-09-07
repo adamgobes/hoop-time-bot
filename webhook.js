@@ -8,7 +8,7 @@ const request = require('request');
 const apiai = require('apiai');
 const http = require('http');
 
-const calendarRequest = require('./calendarRequest');
+const calendarRequest = require('./calendar');
 
 const app = express();
 app.use(bodyParser.json());
@@ -119,9 +119,7 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action == "find_gym") {
         let date = req.body.result.parameters.date;
         let facility = req.body.result.parameters.facility;
-        console.log(date, facility);
         let times = calendarRequest.requestTimes(date, facility).then(function(response) {
-            console.log(response.data.items);
             let msg = calendarRequest.generateOpenGymTimes(response.data.items);
             return res.json({
                 speech: msg,

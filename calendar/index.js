@@ -32,4 +32,11 @@ const requestTimes = (date, activity) => {
     return axios.get(url);
 }
 
-module.exports = { requestTimes, require('./rec'), require('./facilities') };
+
+
+
+const generateOpenGymTimes = require('./facilities');
+
+const generateRecTimes = require('./rec');
+
+module.exports = { requestTimes, generateRecTimes, generateOpenGymTimes };

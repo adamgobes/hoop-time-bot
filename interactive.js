@@ -35,8 +35,8 @@ const actions = {
         console.log('sending...', JSON.stringify(response));
     },
     getRecTimes({context, entities}) {
-        var date = firstEntityValue(entities, "datetime");
-        var sport = firstEntityValue(entities, "sport");
+        var date = firstEntityValue(entities, 'datetime');
+        var sport = firstEntityValue(entities, 'sport');
         var times = calendarRequest.requestTimes(sport, date).then(function(response) {
             context.times = calendarRequest.filter(response.data.items, sport).substring(0, 200);
             return context;
@@ -46,7 +46,7 @@ const actions = {
     },
 };
 
-let accessToken = "RGDH23D2DR62LX4YEYDNLEC3PJ6ATQTG";
+let accessToken = 'RGDH23D2DR62LX4YEYDNLEC3PJ6ATQTG';
 
 
 const client = new Wit({accessToken, actions});

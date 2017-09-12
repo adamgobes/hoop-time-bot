@@ -3,10 +3,30 @@ const allTimes = () => {
     for (let i = 6; i <= 22; i += 1) {
         if (i < 10) {
             returnList.push(`0${i}:00`);
+            returnList.push(`0${i}:05`);
+            returnList.push(`0${i}:10`);
+            returnList.push(`0${i}:15`);
+            returnList.push(`0${i}:20`);
+            returnList.push(`0${i}:25`);
             returnList.push(`0${i}:30`);
+            returnList.push(`0${i}:35`);
+            returnList.push(`0${i}:40`);
+            returnList.push(`0${i}:45`);
+            returnList.push(`0${i}:50`);
+            returnList.push(`0${i}:55`);
         } else {
             returnList.push(`${i}:00`);
+            returnList.push(`${i}:05`);
+            returnList.push(`${i}:10`);
+            returnList.push(`${i}:15`);
+            returnList.push(`${i}:20`);
+            returnList.push(`${i}:25`);
             returnList.push(`${i}:30`);
+            returnList.push(`${i}:35`);
+            returnList.push(`${i}:40`);
+            returnList.push(`${i}:45`);
+            returnList.push(`${i}:50`);
+            returnList.push(`${i}:55`);
         }
     }
     return returnList;

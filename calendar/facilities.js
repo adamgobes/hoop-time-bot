@@ -99,13 +99,13 @@ const generateCurrieTimes = (events) => {
     const events34 = [];
     for (let i = 0; i < events.length; i += 1) {
         for (let j = 0; j < CONTAINS12.length; j += 1) {
-            if (events[i].summary.contains(CONTAINS12[j])) {
+            if (events[i].summary.includes(CONTAINS12[j])) {
                 events12.push(events[i]);
             }
         }
 
         for (let j = 0; j < CONTAINS34.length; j += 1) {
-            if (events[i].summary.contains(CONTAINS34[j])) {
+            if (events[i].summary.includes(CONTAINS34[j])) {
                 events34.push(events[i]);
             }
         }

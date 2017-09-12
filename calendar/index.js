@@ -3,7 +3,6 @@ const moment = require('moment');
 
 
 const requestTimes = (date, activity) => {
-
     let calendarId;
 
     switch (activity) {
@@ -25,18 +24,16 @@ const requestTimes = (date, activity) => {
         default:
             calendarId = 'athleticsmcgill@gmail.com';
     }
-    let desiredDate = moment(date).toISOString();
-    let dayAfter = moment(date).add(1, 'days').toISOString();
+    const desiredDate = moment(date).toISOString();
+    const dayAfter = moment(date).add(1, 'days').toISOString();
     const myKey = 'AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w';
-    let url = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarId + '/events?key=' + myKey + '&timeMin=' + desiredDate + '&timeMax=' + dayAfter + '&showDeleted=false&singleEvents=true&orderBy=startTime';
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${myKey}&timeMin=${desiredDate}&timeMax=${dayAfter}&showDeleted=false&singleEvents=true&orderBy=startTime`;
     return axios.get(url);
 };
 
 
-
-
-const generateOpenGymTimes = require('./facilities');
+const getTimes = require('./facilities');
 
 const generateRecTimes = require('./rec');
 
-module.exports = { requestTimes, generateRecTimes, generateOpenGymTimes };
+module.exports = { requestTimes, generateRecTimes, getTimes };

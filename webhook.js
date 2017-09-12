@@ -1,4 +1,4 @@
-'use strict';
+
 const PAGE_ACCESS_TOKEN = 'EAAUEZA7z5fc4BAIXFXyFJaNXSCN3rVjdfgYQzMIs2qfsjCwEhuCEB8hIZB2t3URhg8L1wHIgNvqkZBzNR1GlZAZCM8i1z978e686FGVZBNAnFLuzyogJrMqZCwHkpGdZCtqGoINs9lfuX04NUzc4KKZCPZCqMq0HcqQVrIZAWyVQc82sgZDZD';
 const APIAI_TOKEN = '2b6ae2b94c1c440e9045cde556ced1f5';
 
@@ -21,7 +21,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 const apiaiApp = apiai(APIAI_TOKEN);
 
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
 	res.send('Hello, this is the server for the HoopTime chat bot');
 });
 
@@ -42,15 +42,15 @@ app.post('/webhook', (req, res) => {
 				if (event.message && event.message.text) {
 					sendMessage(event);
 				} else if (event.postback) {
-					let getStartedMsg = 'Hey! I\'m the HoopTime bot. I can tell you the times during which Gyms 1, 2, 3, and 4 are open. Ask me questions like \'when can I play basketball?\' or \'when is the gym open?\'';
+					const getStartedMsg = 'Hey! I\'m the HoopTime bot. I can tell you the times during which Gyms 1, 2, 3, and 4 are open. Ask me questions like \'when can I play basketball?\' or \'when is the gym open?\'';
 					request({
 						url: 'https://graph.facebook.com/v2.6/me/messages',
-						qs: {access_token: PAGE_ACCESS_TOKEN},
+						qs: { access_token: PAGE_ACCESS_TOKEN },
 						method: 'POST',
 						json: {
-							recipient: {id: event.sender.id},
-							message: {text: getStartedMsg}
-						}
+							recipient: { id: event.sender.id },
+							message: { text: getStartedMsg },
+						},
 					}, (error, response) => {
 						if (error) {
 							console.log('Error sending message: ', error);
@@ -67,24 +67,24 @@ app.post('/webhook', (req, res) => {
 
 
 function sendMessage(event) {
-	let sender = event.sender.id;
-	let text = event.message.text;
+	const sender = event.sender.id;
+	const text = event.message.text;
 
-	let apiai = apiaiApp.textRequest(text, {
-		sessionId: 'hoop_time'
+	const apiai = apiaiApp.textRequest(text, {
+		sessionId: 'hoop_time',
 	});
 
 	apiai.on('response', (response) => {
-		let aiText = response.result.fulfillment.speech;
+		const aiText = response.result.fulfillment.speech;
 
 		request({
 			url: 'https://graph.facebook.com/v2.6/me/messages',
-			qs: {access_token: PAGE_ACCESS_TOKEN},
+			qs: { access_token: PAGE_ACCESS_TOKEN },
 			method: 'POST',
 			json: {
-				recipient: {id: sender},
-				message: {text: aiText}
-			}
+				recipient: { id: sender },
+				message: { text: aiText },
+			},
 		}, (error, response) => {
 			if (error) {
 				console.log('Error sending message: ', error);
@@ -104,36 +104,34 @@ function sendMessage(event) {
 
 app.post('/ai', (req, res) => {
 	if (req.body.result.action == 'find_rec') {
-		let date = req.body.result.parameters.date;
-		let sport = req.body.result.parameters.sport;
-		calendarRequest.requestTimes(date, sport).then(function(response) {
-			let msg = calendarRequest.generateRecTimes(response.data.items, sport);
+		const date = req.body.result.parameters.date;
+		const sport = req.body.result.parameters.sport;
+		calendarRequest.requestTimes(date, sport).then((response) => {
+			const msg = calendarRequest.generateRecTimes(response.data.items, sport);
 			return res.json({
 				speech: msg,
 				displayText: msg,
-				source: 'rec'
+				source: 'rec',
 			});
-		}).catch(function(err) {
+		}).catch((err) => {
 			console.log(err);
 		});
 	} else if (req.body.result.action == 'find_gym') {
-		let date = req.body.result.parameters.date;
-		let facility = req.body.result.parameters.facility;
-		calendarRequest.requestTimes(date, facility).then(function(response) {
-			let msg = calendarRequest.generateOpenGymTimes(response.data.items);
+		const { date, facility } = req.body.result.parameters;
+		calendarRequest.requestTimes(date, facility).then((response) => {
+			const msg = calendarRequest.getTimes(response.data.items, facility);
 			return res.json({
 				speech: msg,
 				displayText: msg,
-				source: 'rec'
+				source: 'rec',
 			});
-		}).catch(function(err) {
+		}).catch((err) => {
 			console.log(err);
 		});
 	}
-
 });
 
 
-setInterval(function() {
+setInterval(() => {
 	http.get('http://hoop-time-bot.herokuapp.com');
 }, 300000);

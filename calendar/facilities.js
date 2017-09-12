@@ -112,8 +112,8 @@ const generateOpenGymTimes = (events) => {
 };
 
 const generateCurrieTimes = (events) => {
-    const CONTAINS12 = ['Gyms 1 & 2', 'Gyms 1&2', 'Gyms 1/2'];
-    const CONTAINS34 = ['Gyms 3 & 4', 'Gyms 3&4', 'Gyms 3/4'];
+    const CONTAINS12 = ['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gyms 1/2'];
+    const CONTAINS34 = ['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gyms 3/4'];
 
     const events12 = [];
     const events34 = [];

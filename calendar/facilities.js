@@ -69,7 +69,7 @@ const generateResponse = (array) => {
     let returnString = '';
     for (let i = 0; i < array.length; i += 1) {
         if (i === array.length - 1) {
-            returnString += array[i];
+            returnString += `and ${array[i]}`;
         } else {
             returnString += `${array[i]}, `;
         }

@@ -141,7 +141,7 @@ const getTimes = (events, facility) => {
         case 'gym':
             return generateCurrieTimes(events);
         default:
-            return 'Unable to process request';
+            return 'Sorry, the gyms are not available on the date you requested';
     }
 };
 

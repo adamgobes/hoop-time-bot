@@ -103,9 +103,8 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-	if (req.body.result.action == 'find_rec') {
-		const date = req.body.result.parameters.date;
-		const sport = req.body.result.parameters.sport;
+	if (req.body.result.action === 'find_rec') {
+		const { date, sport } = req.body.result.parameters;
 		calendarRequest.requestTimes(date, sport).then((response) => {
 			const msg = calendarRequest.generateRecTimes(response.data.items, sport);
 			return res.json({
@@ -116,7 +115,7 @@ app.post('/ai', (req, res) => {
 		}).catch((err) => {
 			console.log(err);
 		});
-	} else if (req.body.result.action == 'find_gym') {
+	} else if (req.body.result.action === 'find_gym') {
 		const { date, facility } = req.body.result.parameters;
 		calendarRequest.requestTimes(date, facility).then((response) => {
 			const msg = calendarRequest.getTimes(response.data.items, facility);

@@ -112,8 +112,8 @@ const generateOpenGymTimes = (events) => {
 };
 
 const generateCurrieTimes = (events) => {
-    const CONTAINS12 = ['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gyms 1/2'];
-    const CONTAINS34 = ['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gyms 3/4'];
+    const CONTAINS12 = ['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gym 1&2', 'Gyms 1/2'];
+    const CONTAINS34 = ['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gym 3&4', 'Gyms 3/4'];
 
     const events12 = [];
     const events34 = [];
@@ -121,11 +121,10 @@ const generateCurrieTimes = (events) => {
         for (let j = 0; j < CONTAINS12.length; j += 1) {
             if (events[i].summary.includes(CONTAINS12[j])) {
                 events12.push(events[i]);
-            }
-        }
-
-        for (let j = 0; j < CONTAINS34.length; j += 1) {
-            if (events[i].summary.includes(CONTAINS34[j])) {
+            } else if (events[i].summary.includes(CONTAINS34[j])) {
+                events34.push(events[i]);
+            } else {
+                events12.push(events[i]);
                 events34.push(events[i]);
             }
         }

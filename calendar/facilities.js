@@ -71,7 +71,7 @@ const generateResponse = (array) => {
         if (i === array.length - 1) {
             returnString += array[i];
         } else {
-            returnString += `${array[i]},`;
+            returnString += `${array[i]}, `;
         }
     }
     return returnString;

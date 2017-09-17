@@ -56,4 +56,4 @@ const generateRecTimes = (events, sport) => {
     return responseString;
 };
 
-module.exports = { generateRecTimes, getNearestRec };
+module.exports = { generateRecTimes };

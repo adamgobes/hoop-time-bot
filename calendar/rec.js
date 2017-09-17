@@ -56,4 +56,4 @@ const generateRecTimes = (events, sport) => {
     return responseString;
 };
 
-module.exports = { generateRecTimes };
+module.exports = generateRecTimes;

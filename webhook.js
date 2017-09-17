@@ -103,68 +103,41 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-	// switch (req.body.result.action) {
-	// 	case 'find_rec': {
-	// 		console.log('this ran');
-	// 		const { date, sport } = req.body.result.parameters;
-	// 		return requestTimes(date, sport).then((response) => {
-	// 			const msg = generateRecTimes(response.data.items, sport);
-	// 			return res.json({
-	// 				speech: msg,
-	// 				displayText: msg,
-	// 				source: 'rec',
-	// 			});
-	// 		}).catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// 	}
-	// 	case 'find_gym': {
-	// 		const { date, facility } = req.body.result.parameters;
-	// 		return requestTimes(date, facility).then((response) => {
-	// 			const msg = getFacilityTimes(response.data.items, facility);
-	// 			return res.json({
-	// 				speech: msg,
-	// 				displayText: msg,
-	// 				source: 'rec',
-	// 			});
-	// 		}).catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// 	}
-	// 	default: {
-	// 		const msg = 'Sorry I could not retrieve the information you requested';
-	// 		return res.json({
-	// 			msg,
-	// 			displayText: msg,
-	// 		});
-	// 	}
-	// }
-	console.log(req.body.result.action);
-	if (req.body.result.action === 'find_rec') {
-		console.log('this ran');
-		const { date, sport } = req.body.result.parameters;
-		requestTimes(date, sport).then((response) => {
-			const msg = generateRecTimes(response.data.items, sport);
-			return res.json({
-				speech: msg,
-				displayText: msg,
-				source: 'rec',
+	switch (req.body.result.action) {
+		case 'find_rec': {
+			console.log('this ran');
+			const { date, sport } = req.body.result.parameters;
+			return requestTimes(date, sport).then((response) => {
+				const msg = generateRecTimes(response.data.items, sport);
+				return res.json({
+					speech: msg,
+					displayText: msg,
+					source: 'rec',
+				});
+			}).catch((err) => {
+				console.log(err);
 			});
-		}).catch((err) => {
-			console.log(err);
-		});
-	} else if (req.body.result.action === 'find_gym') {
-		const { date, facility } = req.body.result.parameters;
-		requestTimes(date, facility).then((response) => {
-			const msg = getFacilityTimes(response.data.items, facility);
-			return res.json({
-				speech: msg,
-				displayText: msg,
-				source: 'rec',
+		}
+		case 'find_gym': {
+			const { date, facility } = req.body.result.parameters;
+			return requestTimes(date, facility).then((response) => {
+				const msg = getFacilityTimes(response.data.items, facility);
+				return res.json({
+					speech: msg,
+					displayText: msg,
+					source: 'rec',
+				});
+			}).catch((err) => {
+				console.log(err);
 			});
-		}).catch((err) => {
-			console.log(err);
-		});
+		}
+		default: {
+			const msg = 'Sorry I could not retrieve the information you requested';
+			return res.json({
+				msg,
+				displayText: msg,
+			});
+		}
 	}
 });
 

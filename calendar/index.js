@@ -2,8 +2,8 @@ const requestTimes = require('./requestTimes');
 
 const getFacilityTimes = require('./facilities');
 
-const generateRecTimes = require('./rec');
+const { getRecTimes, getNearestRec } = require('./rec');
 
-// const getNearestRec = require('./rec/nearest');
-
-module.exports = { requestTimes, generateRecTimes, getFacilityTimes };
+module.exports = {
+    requestTimes, getRecTimes, getFacilityTimes, getNearestRec,
+};

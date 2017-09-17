@@ -8,7 +8,9 @@ const request = require('request');
 const apiai = require('apiai');
 const http = require('http');
 
-const { getFacilityTimes, requestTimes, generateRecTimes } = require('./calendar');
+const {
+	getFacilityTimes, requestTimes, generateRecTimes, generateNearestRecTimes,
+} = require('./calendar');
 
 const app = express();
 app.use(bodyParser.json());
@@ -129,6 +131,17 @@ app.post('/ai', (req, res) => {
 				});
 			}).catch((err) => {
 				console.log(err);
+			});
+		}
+		case 'find_nearest_rec': {
+			const { sport } = req.body.result.parameters;
+			return requestTimes(Date.now(), sport).then((response) => {
+				const msg = generateNearestRecTimes(response.date.items, sport);
+				return res.json({
+					speech: msg,
+					displayText: msg,
+					source: 'rec',
+				})
 			});
 		}
 		default: {

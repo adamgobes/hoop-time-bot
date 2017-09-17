@@ -37,7 +37,7 @@ const filter = (events, sport) => {
     return filteredList;
 };
 
-const generateRecTimes = (events, sport) => {
+const getRecTimes = (events, sport) => {
     const filteredList = filter(events, sport);
 
     if (filteredList.length === 0) {
@@ -56,4 +56,17 @@ const generateRecTimes = (events, sport) => {
     return responseString;
 };
 
-module.exports = generateRecTimes;
+const getNearestRec = (events, sport) => {
+    const filteredList = filter(events, sport);
+    if (filteredList.length === 0) {
+        return 'Sorry I did not find any times available for your request.';
+    }
+
+    let responseString = (sport === 'swimming') || (sport === 'swim') ? `The nearest time I found to go ${sport} are ` : `The nearest time I found to play ${sport} are `;
+
+    responseString += `${filteredList[0].start}:00-${filteredList[0].end}:00`;
+
+    return responseString;
+};
+
+module.exports = { getRecTimes, getNearestRec };

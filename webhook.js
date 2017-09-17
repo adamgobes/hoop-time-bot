@@ -139,7 +139,9 @@ app.post('/ai', (req, res) => {
 	// 		});
 	// 	}
 	// }
+	console.log(req.body.result.action);
 	if (req.body.result.action === 'find_rec') {
+		console.log('this ran');
 		const { date, sport } = req.body.result.parameters;
 		requestTimes(date, sport).then((response) => {
 			const msg = generateRecTimes(response.data.items, sport);

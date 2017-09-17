@@ -26,7 +26,7 @@ const filter = (events, sport) => {
         default:
             eventString = '';
     }
-    for (let i = 0; i < events.length; i++) {
+    for (let i = 0; i < events.length; i += 1) {
         if (events[i].summary.includes(eventString)) {
             filteredList.push({
                 start: moment(parseDate(events[i].start.dateTime)).hour(),
@@ -38,8 +38,6 @@ const filter = (events, sport) => {
 };
 
 const generateRecTimes = (events, sport) => {
-
-
     const filteredList = filter(events, sport);
 
     if (filteredList.length === 0) {
@@ -48,7 +46,7 @@ const generateRecTimes = (events, sport) => {
 
     let responseString = (sport === 'swimming') || (sport === 'swim') ? `The available times I found to go ${sport} are ` : `The available times I found to play ${sport} are `;
 
-    for (let i = 0; i < filteredList.length; i++) {
+    for (let i = 0; i < filteredList.length; i += 1) {
         if (i === filteredList.length - 1) {
             responseString += `${filteredList[i].start}:00-${filteredList[i].end}:00`;
         } else {
@@ -58,4 +56,4 @@ const generateRecTimes = (events, sport) => {
     return responseString;
 };
 
-module.exports = generateRecTimes;
+module.exports = { generateRecTimes, getNearestRec };

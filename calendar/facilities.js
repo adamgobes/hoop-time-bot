@@ -134,7 +134,7 @@ const generateCurrieTimes = (events) => {
 
 const generateFieldhouseTimes = events => `The available times I found to use the fieldhouse are ${generateOpenGymTimes(events)}`;
 
-const getTimes = (events, facility) => {
+const getFacilityTimes = (events, facility) => {
     switch (facility) {
         case 'fieldhouse':
             return generateFieldhouseTimes(events);
@@ -145,4 +145,4 @@ const getTimes = (events, facility) => {
     }
 };
 
-module.exports = getTimes;
+module.exports = getFacilityTimes;

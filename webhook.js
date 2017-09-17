@@ -8,7 +8,7 @@ const request = require('request');
 const apiai = require('apiai');
 const http = require('http');
 
-const calendarRequest = require('./calendar');
+const { getFacilityTimes, requestTimes, generateRecTimes } = require('./calendar');
 
 const app = express();
 app.use(bodyParser.json());
@@ -103,30 +103,40 @@ function sendMessage(event) {
 
 
 app.post('/ai', (req, res) => {
-	if (req.body.result.action === 'find_rec') {
-		const { date, sport } = req.body.result.parameters;
-		calendarRequest.requestTimes(date, sport).then((response) => {
-			const msg = calendarRequest.generateRecTimes(response.data.items, sport);
-			return res.json({
-				speech: msg,
-				displayText: msg,
-				source: 'rec',
+	switch (req.body.result.action) {
+		case 'find_rec': {
+			const { date, sport } = req.body.result.parameters;
+			return requestTimes(date, sport).then((response) => {
+				const msg = generateRecTimes(response.data.items, sport);
+				return res.json({
+					speech: msg,
+					displayText: msg,
+					source: 'rec',
+				});
+			}).catch((err) => {
+				console.log(err);
 			});
-		}).catch((err) => {
-			console.log(err);
-		});
-	} else if (req.body.result.action === 'find_gym') {
-		const { date, facility } = req.body.result.parameters;
-		calendarRequest.requestTimes(date, facility).then((response) => {
-			const msg = calendarRequest.getTimes(response.data.items, facility);
-			return res.json({
-				speech: msg,
-				displayText: msg,
-				source: 'rec',
+		}
+		case 'find_gym': {
+			const { date, facility } = req.body.result.parameters;
+			return requestTimes(date, facility).then((response) => {
+				const msg = getFacilityTimes(response.data.items, facility);
+				return res.json({
+					speech: msg,
+					displayText: msg,
+					source: 'rec',
+				});
+			}).catch((err) => {
+				console.log(err);
 			});
-		}).catch((err) => {
-			console.log(err);
-		});
+		}
+		default: {
+			const msg = 'Sorry I could not retrieve the information you requested';
+			return res.json({
+				msg,
+				displayText: msg,
+			});
+		}
 	}
 });
 

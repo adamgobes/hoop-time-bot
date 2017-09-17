@@ -105,6 +105,7 @@ function sendMessage(event) {
 app.post('/ai', (req, res) => {
 	switch (req.body.result.action) {
 		case 'find_rec': {
+			console.log('this ran');
 			const { date, sport } = req.body.result.parameters;
 			return requestTimes(date, sport).then((response) => {
 				const msg = generateRecTimes(response.data.items, sport);

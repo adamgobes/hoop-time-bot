@@ -118,7 +118,6 @@ const generateCurrieTimes = (events) => {
     const events12 = [];
     const events34 = [];
     for (let i = 0; i < events.length; i += 1) {
-        console.log(events[i]);
         for (let j = 0; j < CONTAINS12.length; j += 1) {
             if (events[i].summary.includes(CONTAINS12[j])) {
                 events12.push(events[i]);

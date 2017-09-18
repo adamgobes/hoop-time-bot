@@ -28,10 +28,7 @@ const filter = (events, sport) => {
     }
     for (let i = 0; i < events.length; i += 1) {
         if (events[i].summary.includes(eventString)) {
-            filteredList.push({
-                start: moment(parseDate(events[i].start.dateTime)).hour(),
-                end: moment(parseDate(events[i].end.dateTime)).hour(),
-            });
+            filteredList.push(events[i]);
         }
     }
     return filteredList;
@@ -47,10 +44,14 @@ const getRecTimes = (events, sport) => {
     let responseString = (sport === 'swimming') || (sport === 'swim') ? `The available times I found to go ${sport} are ` : `The available times I found to play ${sport} are `;
 
     for (let i = 0; i < filteredList.length; i += 1) {
+        const eventTimes = {
+            start: moment(parseDate(filteredList[i].start.dateTime)).hour(),
+            end: moment(parseDate(filteredList[i].end.dateTime)).hour(),
+        };
         if (i === filteredList.length - 1) {
-            responseString += `${filteredList[i].start}:00-${filteredList[i].end}:00`;
+            responseString += `${eventTimes.start}:00-${eventTimes.end}:00`;
         } else {
-            responseString += `${filteredList[i].start}:00-${filteredList[i].end}:00, `;
+            responseString += `${eventTimes.start}:00-${eventTimes.end}:00, `;
         }
     }
     return responseString;

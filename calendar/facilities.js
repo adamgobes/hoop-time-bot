@@ -118,6 +118,7 @@ const generateOpenGymTimes = (events) => {
             allTimesList[k] = '';
         }
     }
+    console.log(allTimesList);
 
     return generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
 };

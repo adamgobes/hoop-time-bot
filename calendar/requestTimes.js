@@ -2,7 +2,6 @@ const moment = require('moment');
 const axios = require('axios');
 
 const requestTimes = (date, activity) => {
-    console.log('this ran');
     let calendarId;
 
     switch (activity) {

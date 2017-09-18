@@ -63,12 +63,11 @@ const getNearestRec = (events, sport) => {
         return 'Sorry I did not find any times available for your request.';
     }
 
-    const nearest = filteredList[0];
-    console.log(nearest);
+    const nearestDate = moment(filteredList[0].start.dateTime).format('dddd, MMMM Do YYYY, h:mm');
 
     let responseString = (sport === 'swimming') || (sport === 'swim') ? `The nearest time I found to go ${sport} are ` : `The nearest time I found to play ${sport} are `;
 
-    responseString += `${filteredList[0].start}:00-${filteredList[0].end}:00`;
+    responseString += nearestDate;
 
     return responseString;
 };

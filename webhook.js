@@ -135,6 +135,7 @@ app.post('/ai', (req, res) => {
 		}
 		case 'find_nearest_rec': {
 			const { sport } = req.body.result.parameters;
+			console.log(Date.now());
 			return requestTimes(Date.now(), sport).then((response) => {
 				const msg = generateNearestRecTimes(response.date.items, sport);
 				return res.json({

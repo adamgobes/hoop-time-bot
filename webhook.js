@@ -107,9 +107,8 @@ function sendMessage(event) {
 app.post('/ai', (req, res) => {
 	switch (req.body.result.action) {
 		case 'find_rec': {
-			console.log('this ran');
 			const { date, sport } = req.body.result.parameters;
-			return requestTimes(date, sport).then((response) => {
+			return requestTimes(date, sport, date).then((response) => {
 				const msg = getRecTimes(response.data.items, sport);
 				return res.json({
 					speech: msg,
@@ -122,7 +121,7 @@ app.post('/ai', (req, res) => {
 		}
 		case 'find_gym': {
 			const { date, facility } = req.body.result.parameters;
-			return requestTimes(date, facility).then((response) => {
+			return requestTimes(date, facility, date).then((response) => {
 				console.log(response.data.items);
 				const msg = getFacilityTimes(response.data.items, facility);
 				return res.json({

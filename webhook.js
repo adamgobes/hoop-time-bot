@@ -110,7 +110,7 @@ app.post('/ai', (req, res) => {
 			console.log('this ran');
 			const { date, sport } = req.body.result.parameters;
 			return requestTimes(date, sport).then((response) => {
-				const msg = generateRecTimes(response.data.items, sport);
+				const msg = getRec(response.data.items, sport);
 				return res.json({
 					speech: msg,
 					displayText: msg,

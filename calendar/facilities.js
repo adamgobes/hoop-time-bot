@@ -60,7 +60,6 @@ const removeConsecBreaks = (array) => {
 };
 
 const generateIntervals = (openSlots, returnArray) => {
-    console.log(openSlots);
     const index = openSlots.indexOf('');
     if (index === -1) {
         if (openSlots.length <= 1) {

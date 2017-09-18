@@ -1,6 +1,16 @@
 const allTimes = () => {
     const returnList = [];
     for (let i = 6; i <= 22; i += 1) {
+        if (i === 22) {
+            returnList.push(`${i}:00`);
+            returnList.push(`${i}:05`);
+            returnList.push(`${i}:10`);
+            returnList.push(`${i}:15`);
+            returnList.push(`${i}:20`);
+            returnList.push(`${i}:25`);
+            returnList.push(`${i}:30`);
+            break;
+        }
         if (i < 10) {
             returnList.push(`0${i}:00`);
             returnList.push(`0${i}:05`);

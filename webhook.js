@@ -9,7 +9,7 @@ const apiai = require('apiai');
 const http = require('http');
 
 const {
-	getFacilityTimes, requestTimes, getRec, getNearestRec,
+	getFacilityTimes, requestTimes, getRecTimes, getNearestRec,
 } = require('./calendar');
 
 const app = express();
@@ -110,7 +110,7 @@ app.post('/ai', (req, res) => {
 			console.log('this ran');
 			const { date, sport } = req.body.result.parameters;
 			return requestTimes(date, sport).then((response) => {
-				const msg = getRec(response.data.items, sport);
+				const msg = getRecTimes(response.data.items, sport);
 				return res.json({
 					speech: msg,
 					displayText: msg,

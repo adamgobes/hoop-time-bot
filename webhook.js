@@ -9,7 +9,7 @@ const apiai = require('apiai');
 const http = require('http');
 
 const {
-	getFacilityTimes, requestTimes, generateRecTimes, generateNearestRecTimes,
+	getFacilityTimes, requestTimes, getRec, getNearestRec,
 } = require('./calendar');
 
 const app = express();
@@ -138,12 +138,12 @@ app.post('/ai', (req, res) => {
 			const today = new Date();
 			const month = today.setMonth(today.getMonth() + 1);
 			return requestTimes(today, sport, month).then((response) => {
-				const msg = generateNearestRecTimes(response.data.items, sport);
+				const msg = getNearestRec(response.data.items, sport);
 				return res.json({
 					speech: msg,
 					displayText: msg,
 					source: 'rec',
-				})
+				});
 			});
 		}
 		default: {

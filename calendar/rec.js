@@ -18,10 +18,10 @@ const filter = (events, sport) => {
             break;
 
         case 'soccer':
-            eventString = 'Drop-In Soccer';
+            eventString = 'Rec Soccer';
             break;
         case 'volleyball':
-            eventString = 'Drop-In Volleyball';
+            eventString = 'Rec Vball';
             break;
         default:
             eventString = '';

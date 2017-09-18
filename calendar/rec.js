@@ -63,7 +63,7 @@ const getNearestRec = (events, sport) => {
         return 'Sorry I did not find any times available for your request.';
     }
 
-    const momentVar = moment(filteredList[0].start.dateTime);
+    console.log(filteredList[0]);
 
     const nearestDate = moment(filteredList[0].start.dateTime).format('dddd, MMMM Do YYYY');
     const startTime = moment(filteredList[0].start.dateTime).hour();

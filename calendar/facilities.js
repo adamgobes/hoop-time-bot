@@ -56,6 +56,7 @@ const removeConsecBreaks = (array) => {
             previousBreak = true;
         }
     }
+    console.log(returnArray);
     return returnArray;
 };
 
@@ -117,7 +118,6 @@ const generateOpenGymTimes = (events) => {
             allTimesList[k] = '';
         }
     }
-    console.log(allTimesList);
 
     return generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
 };

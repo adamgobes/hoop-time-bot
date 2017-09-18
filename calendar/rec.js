@@ -58,6 +58,7 @@ const getRecTimes = (events, sport) => {
 
 const getNearestRec = (events, sport) => {
     const filteredList = filter(events, sport);
+    console.log(events, filteredList);
     if (filteredList.length === 0) {
         return 'Sorry I did not find any times available for your request.';
     }

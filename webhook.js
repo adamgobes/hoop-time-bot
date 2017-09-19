@@ -122,6 +122,7 @@ app.post('/ai', (req, res) => {
 		case 'find_gym': {
 			const { date, facility } = req.body.result.parameters;
 			return requestTimes(date, facility, date).then((response) => {
+				console.log(response.data.items);
 				const msg = getFacilityTimes(response.data.items, facility);
 				return res.json({
 					speech: msg,

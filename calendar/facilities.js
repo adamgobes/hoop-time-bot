@@ -41,6 +41,7 @@ const getFreeTimes = (timesMap, events) => {
     const bookInterval = (map, start, end) => {
         if (start === end) return map;
         const keyArray = map.keySeq().toArray();
+        console.log(keyArray);
         const nextIndex = keyArray.indexOf(start) + 1;
         const next = keyArray[nextIndex];
         return bookInterval(map.set(start, true), next, end);
@@ -48,7 +49,6 @@ const getFreeTimes = (timesMap, events) => {
 
     if (events.length === 0) return timesMap;
     const startTime = events[0].start.dateTime.substring(11, 16);
-    console.log(startTime);
     const endTime = events[0].end.dateTime.substring(11, 16);
 
     return getFreeTimes(bookInterval(timesMap, startTime, endTime), events.splice(1));

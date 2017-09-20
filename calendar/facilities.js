@@ -1,158 +1,122 @@
-const allTimes = () => {
-    const returnList = [];
-    for (let i = 6; i <= 22; i += 1) {
-        if (i === 22) {
-            returnList.push(`${i}:00`);
-            returnList.push(`${i}:05`);
-            returnList.push(`${i}:10`);
-            returnList.push(`${i}:15`);
-            returnList.push(`${i}:20`);
-            returnList.push(`${i}:25`);
-            returnList.push(`${i}:30`);
-            break;
-        }
-        if (i < 10) {
-            returnList.push(`0${i}:00`);
-            returnList.push(`0${i}:05`);
-            returnList.push(`0${i}:10`);
-            returnList.push(`0${i}:15`);
-            returnList.push(`0${i}:20`);
-            returnList.push(`0${i}:25`);
-            returnList.push(`0${i}:30`);
-            returnList.push(`0${i}:35`);
-            returnList.push(`0${i}:40`);
-            returnList.push(`0${i}:45`);
-            returnList.push(`0${i}:50`);
-            returnList.push(`0${i}:55`);
-        } else {
-            returnList.push(`${i}:00`);
-            returnList.push(`${i}:05`);
-            returnList.push(`${i}:10`);
-            returnList.push(`${i}:15`);
-            returnList.push(`${i}:20`);
-            returnList.push(`${i}:25`);
-            returnList.push(`${i}:30`);
-            returnList.push(`${i}:35`);
-            returnList.push(`${i}:40`);
-            returnList.push(`${i}:45`);
-            returnList.push(`${i}:50`);
-            returnList.push(`${i}:55`);
-        }
+const { OrderedMap, List } = require('immutable');
+
+const createTimesMap = (map, startHour, endHour) => {
+    if (startHour < 10 && startHour !== endHour) {
+        const hourMap = OrderedMap([
+            [`0${startHour}:00`, false],
+            [`0${startHour}:05`, false],
+            [`0${startHour}:10`, false],
+            [`0${startHour}:15`, false],
+            [`0${startHour}:20`, false],
+            [`0${startHour}:25`, false],
+            [`0${startHour}:30`, false],
+            [`0${startHour}:35`, false],
+            [`0${startHour}:40`, false],
+            [`0${startHour}:45`, false],
+            [`0${startHour}:50`, false],
+            [`0${startHour}:55`, false],
+        ]);
+        return createTimesMap(map.concat(hourMap), startHour + 1, endHour);
+    } else if (startHour >= 10 && startHour !== endHour) {
+        const hourMap = OrderedMap([
+            [`${startHour}:00`, false],
+            [`${startHour}:05`, false],
+            [`${startHour}:10`, false],
+            [`${startHour}:15`, false],
+            [`${startHour}:20`, false],
+            [`${startHour}:25`, false],
+            [`${startHour}:30`, false],
+            [`${startHour}:35`, false],
+            [`${startHour}:40`, false],
+            [`${startHour}:45`, false],
+            [`${startHour}:50`, false],
+            [`${startHour}:55`, false],
+        ]);
+        return createTimesMap(map.concat(hourMap), startHour + 1, endHour);
     }
-    return returnList;
+    return map;
 };
 
-const removeConsecBreaks = (array) => {
-    const returnArray = [];
-    let previousBreak = false;
-    for (let i = 0; i < array.length; i += 1) {
-        if (previousBreak && array[i].length !== 0) {
-            previousBreak = false;
-        }
-        if (!previousBreak) {
-            returnArray.push(array[i]);
-        }
-        if (array[i].length === 0) {
-            previousBreak = true;
-        }
-    }
-    return returnArray;
+const getFreeTimes = (timesMap, events) => {
+    const bookInterval = (map, start, end) => {
+        if (start === end) return map;
+        const keyArray = map.keySeq().toArray();
+        const nextIndex = keyArray.indexOf(start) + 1;
+        const next = keyArray[nextIndex];
+        return bookInterval(map.set(start, true), next, end);
+    };
+
+    if (events.length === 0) return timesMap;
+
+    const startTime = events[0].start.dateTime.substring(11, 16);
+    const endTime = events[0].end.dateTime.substring(11, 16);
+
+    return getFreeTimes(bookInterval(timesMap, startTime, endTime), events.splice(1));
 };
 
-const generateIntervals = (openSlots, returnArray) => {
-    const index = openSlots.indexOf('');
-    if (index === -1) {
-        if (openSlots.length <= 1) {
-            return returnArray;
-        }
-        returnArray.push(`${openSlots[0]}-${openSlots[openSlots.length - 1]}`);
-        return returnArray;
-    }
-    returnArray.push(`${openSlots[0]}-${openSlots[index - 1]}`);
-    return generateIntervals(openSlots.slice(index + 1, openSlots.length), returnArray);
+const getResponse = (timesMap) => {
+    const start = timesMap.findKey(time => time);
+
+    const keyArray = timesMap.keySeq().toArray();
+    const startIndex = keyArray.indexOf(start);
+
+    if (!start) return `and ${keyArray[0]}-${keyArray[keyArray.length - 1]}`;
+
+    const beforeStart = timesMap.slice(0, startIndex + 1);
+    const beforeStartArray = beforeStart.keySeq().toArray();
+
+    const afterStart = timesMap.slice(startIndex + 1);
+
+    let end = afterStart.findKey(time => !time);
+    if (!end) end = keyArray[keyArray.length - 1];
+    const endIndex = keyArray.indexOf(end);
+
+    return `${beforeStartArray[0]}-${beforeStartArray[beforeStartArray.length - 1]}, ${getResponse(timesMap.slice(endIndex))}`;
 };
 
-const generateResponse = (array) => {
-    if (array.length === 0) {
-        return 'Sorry, the gyms are not available on the date you requested';
-    }
-    let returnString = '';
-    for (let i = 0; i < array.length; i += 1) {
-        if (i === array.length - 1) {
-            returnString += `and ${array[i]}`;
-        } else {
-            returnString += `${array[i]}, `;
+const getCurrieSchedule = (events) => {
+    const CONTAINS12 = List(['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gym 1&2', 'Gyms 1/2', 'Gym 1/2']);
+    const CONTAINS34 = List(['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gym 3&4', 'Gyms 3/4', 'Gym 3/4']);
+
+    let events12 = List();
+    let events34 = List();
+
+    events.forEach((event) => {
+        const in12 = CONTAINS12.find(string => event.summary.indexOf(string) !== -1);
+        const in23 = CONTAINS34.find(string => event.summary.indexOf(string) !== -1);
+        if (in12) events12 = events12.concat(event.summary);
+        else if (in23) events34 = events34.concat(event.summary);
+        else {
+            events12 = events12.concat(event.summary);
+            events34 = events34.concat(event.summary);
         }
-    }
-    return returnString;
+    });
+
+    return { events12, events34 };
 };
-
-const generateOpenGymTimes = (events) => {
-    if (events.length === 0) {
-        return 'This facility is free the whole day!';
-    } else if (events[0].summary.includes('EXAMINATIONS PERIOD')) {
-        return 'Exams season is unfortunately upon us. All the facilities are occupied :(';
-    }
-
-    const allTimesList = allTimes();
-    const timesOccupied = [];
-    let lastTime = '';
-    for (let i = 0; i < events.length; i += 1) {
-        const startTimeIndex = allTimesList.indexOf(events[i].start.dateTime.substring(11, 16));
-        const endTimeIndex = allTimesList.indexOf(events[i].end.dateTime.substring(11, 16));
-
-        if (lastTime === allTimesList[startTimeIndex]) {
-            timesOccupied.push(allTimesList[startTimeIndex]);
-        }
-
-        lastTime = allTimesList[endTimeIndex];
-
-        for (let j = startTimeIndex + 1; j < endTimeIndex; j += 1) {
-            timesOccupied.push(allTimesList[j]);
-        }
-    }
-    console.log(timesOccupied);
-    for (let k = 0; k < allTimesList.length; k += 1) {
-        if (timesOccupied.indexOf(allTimesList[k]) !== -1) {
-            allTimesList[k] = '';
-        }
-    }
-
-    return generateResponse(generateIntervals(removeConsecBreaks(allTimesList), []));
-};
-
-const generateCurrieTimes = (events) => {
-    const CONTAINS12 = ['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gym 1&2', 'Gyms 1/2'];
-    const CONTAINS34 = ['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gym 3&4', 'Gyms 3/4'];
-
-    const events12 = [];
-    const events34 = [];
-    for (let i = 0; i < events.length; i += 1) {
-        for (let j = 0; j < CONTAINS12.length; j += 1) {
-            if (events[i].summary.includes(CONTAINS12[j])) {
-                events12.push(events[i]);
-            } else if (events[i].summary.includes(CONTAINS34[j])) {
-                events34.push(events[i]);
-            } else {
-                events12.push(events[i]);
-                events34.push(events[i]);
-            }
-        }
-    }
-    return `The available times I found to use Gyms 1 & 2 are ${generateOpenGymTimes(events12)}. The available times I found to use Gyms 3 & 4 are ${generateOpenGymTimes(events34)}`;
-};
-
-const generateFieldhouseTimes = events => `The available times I found to use the fieldhouse are ${generateOpenGymTimes(events)}`;
 
 const getFacilityTimes = (events, facility) => {
     switch (facility) {
-        case 'fieldhouse':
-            return generateFieldhouseTimes(events);
-        case 'gym':
-            return generateCurrieTimes(events);
-        default:
+        case 'fieldhouse': {
+            const fieldhouseMap = getFreeTimes(events);
+            return `The available times I found to use the fieldhouse are ${getResponse(fieldhouseMap)}`;
+        }
+        case 'gym': {
+            const { gyms12Events, gyms34Events } = getCurrieSchedule(events);
+            const gyms12Map = getFreeTimes(gyms12Events);
+            const gyms34Map = getFreeTimes(gyms34Events);
+            return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
+        }
+        default: {
             return 'Sorry, the gyms are not available on the date you requested';
+        }
     }
 };
 
-module.exports = getFacilityTimes;
+module.exports = {
+    createTimesMap,
+    getFacilityTimes,
+    getCurrieSchedule,
+    getFreeTimes,
+    getResponse,
+};

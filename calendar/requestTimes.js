@@ -23,7 +23,7 @@ const requestTimes = (date, activity, timespan) => {
         default:
             calendarId = 'athleticsmcgill@gmail.com';
     }
-    const desiredDate = moment(date).toISOString();
+    const desiredDate = moment(date).add(6, 'hours').toISOString();
     const range = date === timespan ? moment(date).add(1, 'days').toISOString() : moment(timespan).toISOString();
     const myKey = 'AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w';
     const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${myKey}&timeMin=${desiredDate}&timeMax=${range}&showDeleted=false&singleEvents=true&orderBy=startTime`;

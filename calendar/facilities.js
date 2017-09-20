@@ -38,8 +38,8 @@ const createTimesMap = (map, startHour, endHour) => {
 };
 
 const getFreeTimes = (timesMap, events) => {
-    console.log(events.length);
     const bookInterval = (map, start, end) => {
+        console.log(start, end);
         if (start === end) return map;
         const keyArray = map.keySeq().toArray();
         const nextIndex = keyArray.indexOf(start) + 1;

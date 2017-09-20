@@ -94,15 +94,16 @@ const getCurrieSchedule = (events) => {
 };
 
 const getFacilityTimes = (events, facility) => {
+    const timesMap = createTimesMap(new OrderedMap({}, 6, 23));
     switch (facility) {
         case 'fieldhouse': {
-            const fieldhouseMap = getFreeTimes(new OrderedMap({}, 6, 23), events);
+            const fieldhouseMap = getFreeTimes(timesMap, events);
             return `The available times I found to use the fieldhouse are ${getResponse(fieldhouseMap)}`;
         }
         case 'gym': {
             const { events12, events34 } = getCurrieSchedule(events);
-            const gyms12Map = getFreeTimes(new OrderedMap({}, 6, 23), events12.toArray());
-            const gyms34Map = getFreeTimes(new OrderedMap({}, 6, 23), events34.toArray());
+            const gyms12Map = getFreeTimes(timesMap, events12.toArray());
+            const gyms34Map = getFreeTimes(timesMap, events34.toArray());
             return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
         }
         default: {

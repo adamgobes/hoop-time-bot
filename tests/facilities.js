@@ -292,7 +292,8 @@ describe('functions that depend on array of events', () => {
     describe('getFreeTimes function', () => {
         it('should correctly set time slots to true in the timesMap if events are occuring', () => {
             const timesMap = createTimesMap(new OrderedMap({}), 6, 23);
-            const newTimesMap = getFreeTimes(timesMap, testEventsArray);
+            const { events12, events34 } = getCurrieSchedule(testEventsArray);
+            const newTimesMap = getFreeTimes(timesMap, events12.toArray());
             assert.equal(newTimesMap.get('18:45'), true);
             assert.equal(newTimesMap.get('16:00'), true);
             assert.equal(newTimesMap.get('10:30'), true);

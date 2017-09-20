@@ -1,6 +1,6 @@
 const requestTimes = require('./requestTimes');
 
-const getFacilityTimes = require('./facilities');
+const { getFacilityTimes } = require('./facilities');
 
 const { getRecTimes, getNearestRec } = require('./rec');
 

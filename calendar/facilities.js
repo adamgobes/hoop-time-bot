@@ -47,8 +47,8 @@ const getFreeTimes = (timesMap, events) => {
     };
 
     if (events.length === 0) return timesMap;
-    console.log(events[0]);
     const startTime = events[0].start.dateTime.substring(11, 16);
+    console.log(startTime);
     const endTime = events[0].end.dateTime.substring(11, 16);
 
     return getFreeTimes(bookInterval(timesMap, startTime, endTime), events.splice(1));

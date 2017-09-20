@@ -28,69 +28,6 @@ describe('functions that depend on array of events', () => {
     const testEventsArray = [
         {
             kind: 'calendar#event',
-            etag: '"3008384213174000"',
-            id: '2as2a2ad2uk4i7ton2rd6r7c9p_20170919T230000Z',
-            status: 'confirmed',
-            htmlLink: 'https://www.google.com/calendar/event?eid=MmFzMmEyYWQydWs0aTd0b24ycmQ2cjdjOXBfMjAxNzA5MTlUMjMwMDAwWiBhdGhsZXRpY3NtY2dpbGxAbQ',
-            created: '2017-08-31T15:08:26.000Z',
-            updated: '2017-08-31T15:08:26.587Z',
-            summary: 'McGill Med Cheer (Gym 1)',
-            creator: {
-                email: 'athleticsmcgill@gmail.com',
-                displayName: 'McGill Athletics',
-                self: true,
-            },
-            organizer: {
-                email: 'athleticsmcgill@gmail.com',
-                displayName: 'McGill Athletics',
-                self: true,
-            },
-            start: {
-                dateTime: '2017-09-19T19:00:00-04:00',
-                timeZone: 'America/Toronto',
-            },
-            end: {
-                dateTime: '2017-09-19T21:00:00-04:00',
-                timeZone: 'America/Toronto',
-            },
-            recurringEventId: '2as2a2ad2uk4i7ton2rd6r7c9p',
-            originalStartTime: {
-                dateTime: '2017-09-19T19:00:00-04:00',
-                timeZone: 'America/Toronto',
-            },
-            iCalUID: '2as2a2ad2uk4i7ton2rd6r7c9p@google.com',
-            sequence: 0,
-        },
-        {
-            kind: 'calendar#event',
-            etag: '"2994736376006000"',
-            id: '59l7a6nj5qibo66au45upk1gp8',
-            status: 'confirmed',
-            htmlLink: 'https://www.google.com/calendar/event?eid=NTlsN2E2bmo1cWlibzY2YXU0NXVwazFncDggYXRobGV0aWNzbWNnaWxsQG0',
-            created: '2017-06-08T20:08:31.000Z',
-            updated: '2017-06-13T15:36:28.003Z',
-            summary: 'Varsity Basketball Martlet (Gyms 3 & 4)',
-            creator: {
-                email: 'athleticsmcgill@gmail.com',
-                displayName: 'McGill Athletics',
-                self: true,
-            },
-            organizer: {
-                email: 'athleticsmcgill@gmail.com',
-                displayName: 'McGill Athletics',
-                self: true,
-            },
-            start: {
-                dateTime: '2017-09-19T19:00:00-04:00',
-            },
-            end: {
-                dateTime: '2017-09-19T21:00:00-04:00',
-            },
-            iCalUID: '59l7a6nj5qibo66au45upk1gp8@google.com',
-            sequence: 1,
-        },
-        {
-            kind: 'calendar#event',
             etag: '"2992518152098000"',
             id: '2ed149crppuefb101vgqip9q34_20170920T103000Z',
             status: 'confirmed',
@@ -374,7 +311,7 @@ describe('functions that depend on array of events', () => {
             assert.equal(newTimesMap.get('18:45'), true);
             assert.equal(newTimesMap.get('16:00'), true);
             assert.equal(newTimesMap.get('10:30'), true);
-            assert.equal(newTimesMap.get('19:00'), false);
+            assert.equal(newTimesMap.get('20:00'), false);
         });
     });
 });

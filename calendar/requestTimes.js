@@ -27,7 +27,6 @@ const requestTimes = (date, activity, timespan) => {
     const range = date === timespan ? moment(date).add(1, 'days').toISOString() : moment(timespan).toISOString();
     const myKey = 'AIzaSyBVniGKarvjET4CVH5OisnQ0NxJsH09L2w';
     const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${myKey}&timeMin=${desiredDate}&timeMax=${range}&showDeleted=false&singleEvents=true&orderBy=startTime`;
-    console.log(url);
     return axios.get(url);
 };
 

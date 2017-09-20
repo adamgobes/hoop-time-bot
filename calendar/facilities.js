@@ -94,7 +94,7 @@ const getCurrieSchedule = (events) => {
 };
 
 const getFacilityTimes = (events, facility) => {
-    const timesMap = createTimesMap(new OrderedMap({}, 6, 23));
+    const timesMap = createTimesMap(new OrderedMap({}), 6, 23);
     switch (facility) {
         case 'fieldhouse': {
             const fieldhouseMap = getFreeTimes(timesMap, events);

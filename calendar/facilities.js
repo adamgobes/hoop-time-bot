@@ -91,7 +91,6 @@ const getCurrieSchedule = (events) => {
             events34 = events34.concat(event);
         }
     });
-    console.log(events12, events34);
     return { events12, events34 };
 };
 
@@ -102,9 +101,9 @@ const getFacilityTimes = (events, facility) => {
             return `The available times I found to use the fieldhouse are ${getResponse(fieldhouseMap)}`;
         }
         case 'gym': {
-            const { gyms12Events, gyms34Events } = getCurrieSchedule(events);
-            const gyms12Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms12Events.toArray());
-            const gyms34Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms34Events.toArray());
+            const { events12, events34 } = getCurrieSchedule(events);
+            const gyms12Map = getFreeTimes(new OrderedMap({}, 6, 23), events12.toArray());
+            const gyms34Map = getFreeTimes(new OrderedMap({}, 6, 23), events34.toArray());
             return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
         }
         default: {

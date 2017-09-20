@@ -96,7 +96,6 @@ const getCurrieSchedule = (events) => {
 };
 
 const getFacilityTimes = (events, facility) => {
-    console.log(events);
     switch (facility) {
         case 'fieldhouse': {
             const fieldhouseMap = getFreeTimes(new OrderedMap({}, 6, 23), events);
@@ -104,8 +103,8 @@ const getFacilityTimes = (events, facility) => {
         }
         case 'gym': {
             const { gyms12Events, gyms34Events } = getCurrieSchedule(events);
-            const gyms12Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms12Events);
-            const gyms34Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms34Events);
+            const gyms12Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms12Events.toArray());
+            const gyms34Map = getFreeTimes(new OrderedMap({}, 6, 23), gyms34Events.toArray());
             return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
         }
         default: {

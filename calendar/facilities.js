@@ -37,38 +37,86 @@ const createTimesMap = (map, startHour, endHour) => {
     return map;
 };
 
-const generateCurrieSchedule = (listOneTwo, listThreeFour, events) => {
-    const CONTAINS12 = List(['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gym 1&2', 'Gyms 1/2']);
-    const CONTAINS34 = List(['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gym 3&4', 'Gyms 3/4']);
+const getFreeTimes = (timesMap, events) => {
+    const bookInterval = (map, start, end) => {
+        if (start === end) return map;
+        const keyArray = map.keySeq().toArray();
+        const nextIndex = keyArray.indexOf(start) + 1;
+        const next = keyArray[nextIndex];
+        return bookInterval(map.set(start, true), next, end);
+    };
+
+    if (events.length === 0) return timesMap;
+
+    const startTime = events[0].start.dateTime.substring(11, 16);
+    const endTime = events[0].end.dateTime.substring(11, 16);
+
+    return getFreeTimes(bookInterval(timesMap, startTime, endTime), events.splice(1));
+};
+
+const getResponse = (timesMap) => {
+    const start = timesMap.findKey(time => time);
+
+    const keyArray = timesMap.keySeq().toArray();
+    const startIndex = keyArray.indexOf(start);
+
+    if (!start) return `and ${keyArray[0]}-${keyArray[keyArray.length - 1]}`;
+
+    const beforeStart = timesMap.slice(0, startIndex + 1);
+    const beforeStartArray = beforeStart.keySeq().toArray();
+
+    const afterStart = timesMap.slice(startIndex + 1);
+
+    let end = afterStart.findKey(time => !time);
+    if (!end) end = keyArray[keyArray.length - 1];
+    const endIndex = keyArray.indexOf(end);
+
+    return `${beforeStartArray[0]}-${beforeStartArray[beforeStartArray.length - 1]}, ${getResponse(timesMap.slice(endIndex))}`;
+};
+
+const getCurrieSchedule = (events) => {
+    const CONTAINS12 = List(['Gyms 1 & 2', 'Gym 1 & 2', 'Gyms 1&2', 'Gym 1&2', 'Gyms 1/2', 'Gym 1/2']);
+    const CONTAINS34 = List(['Gyms 3 & 4', 'Gym 3 & 4', 'Gyms 3&4', 'Gym 3&4', 'Gyms 3/4', 'Gym 3/4']);
 
     let events12 = List();
     let events34 = List();
 
     events.forEach((event) => {
-        const in12 = CONTAINS12.find(string => event.summary === string);
-        const in23 = CONTAINS34.find(string => event.summary === string);
-        if (in12) events12 = events12.concat(event);
-        else if (in23) events34 = events34.concat(event);
+        const in12 = CONTAINS12.find(string => event.summary.indexOf(string) !== -1);
+        const in23 = CONTAINS34.find(string => event.summary.indexOf(string) !== -1);
+        if (in12) events12 = events12.concat(event.summary);
+        else if (in23) events34 = events34.concat(event.summary);
         else {
-            events12 = events12.concat(event);
-            events34 = events34.concat(event);
+            events12 = events12.concat(event.summary);
+            events34 = events34.concat(event.summary);
         }
     });
 
-    return `The available times I found to use Gyms 1 & 2 are ${generateOpenGymTimes(events12)}. The available times I found to use Gyms 3 & 4 are ${generateOpenGymTimes(events34)}`;
+    return { events12, events34 };
 };
-
-const generateFieldhouseTimes = events => `The available times I found to use the fieldhouse are ${generateOpenGymTimes(events)}`;
 
 const getFacilityTimes = (events, facility) => {
     switch (facility) {
-        case 'fieldhouse':
-            return generateFieldhouseTimes(events);
-        case 'gym':
-            return generateCurrieSchedule(events);
-        default:
+        case 'fieldhouse': {
+            const fieldhouseMap = getFreeTimes(events);
+            return `The available times I found to use the fieldhouse are ${getResponse(fieldhouseMap)}`;
+        }
+        case 'gym': {
+            const { gyms12Events, gyms34Events } = getCurrieSchedule(events);
+            const gyms12Map = getFreeTimes(gyms12Events);
+            const gyms34Map = getFreeTimes(gyms34Events);
+            return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
+        }
+        default: {
             return 'Sorry, the gyms are not available on the date you requested';
+        }
     }
 };
 
-module.exports = { getFacilityTimes, generateCurrieSchedule };
+module.exports = {
+    createTimesMap,
+    getFacilityTimes,
+    getCurrieSchedule,
+    getFreeTimes,
+    getResponse,
+};

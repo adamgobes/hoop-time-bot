@@ -84,14 +84,14 @@ const getCurrieSchedule = (events) => {
     events.forEach((event) => {
         const in12 = CONTAINS12.find(string => event.summary.indexOf(string) !== -1);
         const in23 = CONTAINS34.find(string => event.summary.indexOf(string) !== -1);
-        if (in12) events12 = events12.concat(event.summary);
-        else if (in23) events34 = events34.concat(event.summary);
+        if (in12) events12 = events12.concat(event);
+        else if (in23) events34 = events34.concat(event);
         else {
-            events12 = events12.concat(event.summary);
-            events34 = events34.concat(event.summary);
+            events12 = events12.concat(event);
+            events34 = events34.concat(event);
         }
     });
-
+    console.log(events12, events34);
     return { events12, events34 };
 };
 

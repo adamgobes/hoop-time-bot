@@ -51,6 +51,7 @@ const getFreeTimes = (timesMap, events) => {
     const startTime = events[0].start.dateTime.substring(11, 16);
     const endTime = events[0].end.dateTime.substring(11, 16);
 
+    console.log('this raaaan');
     return getFreeTimes(bookInterval(timesMap, startTime, endTime), events.splice(1));
 };
 
@@ -70,7 +71,7 @@ const getResponse = (timesMap) => {
     let end = afterStart.findKey(time => !time);
     if (!end) end = keyArray[keyArray.length - 1];
     const endIndex = keyArray.indexOf(end);
-    console.log('this raaaan');
+
     return `${beforeStartArray[0]}-${beforeStartArray[beforeStartArray.length - 1]}, ${getResponse(timesMap.slice(endIndex))}`;
 };
 

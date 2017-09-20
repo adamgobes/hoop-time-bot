@@ -70,7 +70,7 @@ const getResponse = (timesMap) => {
     let end = afterStart.findKey(time => !time);
     if (!end) end = keyArray[keyArray.length - 1];
     const endIndex = keyArray.indexOf(end);
-
+    console.log('this raaaan');
     return `${beforeStartArray[0]}-${beforeStartArray[beforeStartArray.length - 1]}, ${getResponse(timesMap.slice(endIndex))}`;
 };
 

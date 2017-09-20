@@ -55,10 +55,10 @@ describe('functions that depend on array of events', () => {
     describe('generateCurrieSchedule function', () => {
         it('should correctly place events in correct place and in the correct order depending on summary', () => {
             const { events12, events34 } = getCurrieSchedule(testEventsArray);
-            assert.equal(events12.get(0), 'Varsity Basketball Redmen (Gyms 1 & 2)');
-            assert.equal(events12.get(1), 'Varsity Basketball Redmen (Gym 1/2)');
-            assert.equal(events34.get(0), 'Varsity Basketball Redmen (Gyms 3 & 4)');
-            assert.equal(events34.get(1), 'Varsity Basketball Redmen (Gym 3 & 4)');
+            assert.equal(events12.get(0).summary, 'Varsity Basketball Redmen (Gyms 1 & 2)');
+            assert.equal(events12.get(1).summary, 'Varsity Basketball Redmen (Gym 1/2)');
+            assert.equal(events34.get(0).summary, 'Varsity Basketball Redmen (Gyms 3 & 4)');
+            assert.equal(events34.get(1).summary, 'Varsity Basketball Redmen (Gym 3 & 4)');
         });
     });
 
@@ -78,6 +78,6 @@ describe('getResponse function', () => {
         const timesMap = createTimesMap(new OrderedMap({}), 6, 23)
             .set('16:00', true).set('16:05', true).set('16:10', true);
         const res = getResponse(timesMap, 'fieldhouse');
-        assert.equal(res, '06:00-16:00, 16:15-22:55');
+        assert.equal(res, '06:00-16:00, and 16:15-22:55');
     });
 });

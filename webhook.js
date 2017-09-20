@@ -44,7 +44,11 @@ app.post('/webhook', (req, res) => {
 				if (event.message && event.message.text) {
 					sendMessage(event);
 				} else if (event.postback) {
-					const getStartedMsg = 'Hey! I\'m the HoopTime bot. I can tell you the times during which Gyms 1, 2, 3, and 4 are open. Ask me questions like \'when can I play basketball?\' or \'when is the gym open?\'';
+					const getStartedMsg = `
+					Hey! I'm the HoopTime bot.
+					I can tell you almost anything about the athletic facilities at McGill such as when the Currie Gymnasium and Fieldhouse are open,
+					or even when you can play recreational sports.
+					Ask me questions like 'when is the nearest time I can play basketball?' or 'when is the gym open today?`;
 					request({
 						url: 'https://graph.facebook.com/v2.6/me/messages',
 						qs: { access_token: PAGE_ACCESS_TOKEN },

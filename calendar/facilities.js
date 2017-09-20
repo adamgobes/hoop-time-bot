@@ -104,7 +104,7 @@ const getFacilityTimes = (events, facility) => {
             const { events12, events34 } = getCurrieSchedule(events);
             const gyms12Map = getFreeTimes(timesMap, events12.toArray());
             const gyms34Map = getFreeTimes(timesMap, events34.toArray());
-            return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)} ${getResponse(gyms34Map)}`;
+            return `The available times I found to use Gyms 1 & 2 are ${getResponse(gyms12Map)}. The available times I found to use Gyms 3 & 4 are ${getResponse(gyms34Map)}`;
         }
         default: {
             return 'Sorry, the gyms are not available on the date you requested';

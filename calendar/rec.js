@@ -32,7 +32,7 @@ const filter = (events, sport) => {
 const getRecTimes = (events, sport) => {
     const getResponse = (init, filteredEvents) => {
         if (filteredEvents.size === 0) return init;
-        const event = filteredEvent.get(0);
+        const event = filteredEvents.get(0);
         const eventTimes = {
             start: moment(parseDate(event.start.dateTime)).hour(),
             end: moment(parseDate(event.end.dateTime)).hour(),

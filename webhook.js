@@ -45,10 +45,7 @@ app.post('/webhook', (req, res) => {
 					sendMessage(event);
 				} else if (event.postback) {
 					const getStartedMsg = `
-					Hey! I'm the HoopTime bot.
-					I can tell you almost anything about the athletic facilities at McGill such as when the Currie Gymnasium and Fieldhouse are open,
-					or even when you can play recreational sports.
-					Ask me questions like 'when is the nearest time I can play basketball?' or 'when is the gym open today?`;
+					Hey! I'm the HoopTime bot. I can tell you almost anything about the athletic facilities at McGill such as when the Currie Gymnasium and Fieldhouse are open, or even when you can play recreational sports. Ask me questions like 'when is the nearest time I can play basketball?' or 'when is the gym open today?`;
 					request({
 						url: 'https://graph.facebook.com/v2.6/me/messages',
 						qs: { access_token: PAGE_ACCESS_TOKEN },

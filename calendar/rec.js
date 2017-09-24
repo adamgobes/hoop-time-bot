@@ -37,8 +37,8 @@ const getRecTimes = (events, sport) => {
             start: moment(parseDate(event.start.dateTime)).hour(),
             end: moment(parseDate(event.end.dateTime)).hour(),
         };
-        if (events.size === 1) return getResponse(`${init}${eventTimes.start}:00-${eventTimes.end}:00`, filteredEvents.slice(1));
-        return getResponse(`${init}${eventTimes.start}:00-${eventTimes.end}:00,`, filteredEvents.slice(1));
+        if (events.size === 1) return getResponse(`${init}${eventTimes.start}:00-${eventTimes.end}:00,`, filteredEvents.slice(1));
+        return getResponse(`${init}${eventTimes.start}:00-${eventTimes.end}:00.`, filteredEvents.slice(1));
     };
 
     const filteredList = filter(events, sport);

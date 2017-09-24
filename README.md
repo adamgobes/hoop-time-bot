@@ -4,4 +4,5 @@ The current sports supported are basketball, soccer, volleyball, and swimming. A
 the Currie Gymnasium or Fieldhouse is open for recreational sports.
 This chat-bot was built primarily with NodeJS, ImmutableJS, and Google's API.AI NLP engine.
 
-https://media.giphy.com/media/xT9IgA3G1papIMO9YA/giphy.gif
+
+![alt text](https://media.giphy.com/media/xT9IgA3G1papIMO9YA/giphy.gif "Demo")

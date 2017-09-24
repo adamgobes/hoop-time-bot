@@ -5,4 +5,4 @@ the Currie Gymnasium or Fieldhouse is open for recreational sports.
 This chat-bot was built primarily with NodeJS, ImmutableJS, and Google's API.AI NLP engine.
 
 
-![alt text](https://media.giphy.com/media/xT9IgA3G1papIMO9YA/giphy.gif "Demo")
+![alt text](https://media.giphy.com/media/l378uL87FsQL0XUwo/giphy.gif "Demo")

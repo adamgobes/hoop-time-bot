@@ -48,6 +48,4 @@ describe('rec functions', () => {
             assert.equal(times, 'The available times I found to play basketball are 7:00-9:00');
         });
     });
-
-
 });

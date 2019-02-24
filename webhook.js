@@ -6,7 +6,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
-const http = require('http');
 
 const {
 	getFacilityTimes, requestTimes, getRecTimes, getNearestRec,
@@ -155,8 +154,3 @@ app.post('/ai', (req, res) => {
 		}
 	}
 });
-
-
-setInterval(() => {
-	http.get('http://hoop-time-bot.herokuapp.com');
-}, 300000);
